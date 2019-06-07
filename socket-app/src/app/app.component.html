@@ -1,0 +1,17 @@
+<nav class="navbar navbar-light bg-light sticky-top">
+  <span class="menu-icon" style="margin-left: 5px;" [ngClass]="{'active': activeView === 'voting'}">
+    <i class="fas fa-vote-yea" (click)="activeView = 'voting'"></i>
+  </span>
+  <span class="mat-h2 title">EIF Old Boys</span>
+  <span class="menu-icon" [ngClass]="{'active': activeView === 'manager'}" style="margin-right: 5px;">
+    <i class="fas fa-tasks" (click)="activeView = 'manager'"></i>
+  </span>
+</nav>
+<div *ngIf="activeView == 'voting'">
+  <app-waiting-for-match *ngIf="currentAppState === APP_STATES.WAITING_FOR_MATCH"></app-waiting-for-match>
+  <app-voting *ngIf="currentAppState === APP_STATES.VOTING_ONGOING"></app-voting>
+  <app-player-votes *ngIf="currentAppState === APP_STATES.VOTING_FINISHED"></app-player-votes>
+</div>
+<div *ngIf="activeView == 'manager'">
+  <app-manager-view></app-manager-view>
+</div>

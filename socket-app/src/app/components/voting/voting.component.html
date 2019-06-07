@@ -1,0 +1,3 @@
+<div class="container">
+  <button type="button" class="btn btn-lg btn-block voting-button" [ngClass]="{ 'active': selectedPlayer && selectedPlayer.name == player.name }" *ngFor="let player of players" (click)="publishVote(player)">{{player.name}}</button>
+</div>

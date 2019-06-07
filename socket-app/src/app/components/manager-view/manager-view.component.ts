@@ -1,0 +1,74 @@
+import { Component, OnInit } from '@angular/core';
+import {Player} from '../../models/player';
+import {VotingService} from '../../services/voting.service';
+import {startWith} from "rxjs/operators";
+import {Subscription} from "rxjs";
+import {AppState} from "../../voting-state";
+
+@Component({
+  selector: 'app-manager-view',
+  templateUrl: './manager-view.component.html',
+  styleUrls: ['./manager-view.component.scss']
+})
+export class ManagerViewComponent implements OnInit {
+  public players = [
+    new Player('Kenneth Andersen', 'Title', 1),
+    new Player('Justinus T.', 'Title', 2),
+    new Player('Karma Rasmussen', 'Jon Dahl Thomassen', 3),
+    new Player('Casper Kirkegaard', 'Jens Lyn', 4),
+    new Player('Kenneth Meik', 'Jens Lyn', 5),
+    new Player('Michael Søby', 'Mr. Jeg tager lige et træk mere', 6),
+    new Player('Casper Bo Jensen', 'The Wall', 7),
+    new Player('Ola Thomassen', 'The Wall', 8),
+    new Player('Ronnie Trøjborg', 'Slow moving Attacker', 9),
+    new Player('Jacob Smedegaard', 'Tordenstøvlen', 10),
+    new Player('Martin Wolhardt', 'Tordenstøvlen', 11),
+    new Player('Morten Skovby', 'Tordenstøvlen', 12),
+    new Player('Jonas Madsen', 'Tordenstøvlen', 13),
+    new Player('Søren Langhoff', 'Tordenstøvlen', 14),
+    new Player('Tom Larsen', 'Forest Gump', 15),
+    new Player('Martin Hjerrild', 'Tordenstøvlen', 16),
+    new Player('Chris Jørgensen', 'Tordenstøvlen', 17),
+    new Player('Kenneth Jørgensen', 'Tordenstøvlen', 18),
+    new Player('Kasper Bach', 'Tordenstøvlen', 19),
+    new Player('Thomas Andersen', 'Tordenstøvlen', 20),
+    new Player('Claus Meldrup', 'Tordenstøvlen', 21),
+    new Player('Christian Kidmose', 'Tordenstøvlen', 22)
+
+  ];
+  public selectedPlayers: Player[] = [];
+  private stateSubscription: Subscription;
+  public APP_STATES = AppState;
+  public currentAppState: string;
+
+  constructor(private votingService: VotingService) { }
+
+  ngOnInit() {
+    this.stateSubscription = this.votingService.votingState.pipe(
+      startWith(AppState.WAITING_FOR_MATCH)
+    ).subscribe(votingState => {
+      this.currentAppState = votingState;
+    });
+  }
+
+  selectPlayer(selectedPlayer: Player) {
+    if (this.currentAppState === AppState.VOTING_ONGOING) {
+      return;
+    }
+    if (this.selectedPlayers.includes(selectedPlayer)) {
+      this.selectedPlayers = this.selectedPlayers.filter(player => selectedPlayer !== player);
+    } else {
+      this.selectedPlayers.push(selectedPlayer);
+    }
+
+    this.votingService.emitSelectedPlayers(this.selectedPlayers);
+  }
+
+  startVoting() {
+    this.votingService.startVotingSession(this.selectedPlayers);
+  }
+
+  stopVoting() {
+    this.votingService.finishVote();
+  }
+}

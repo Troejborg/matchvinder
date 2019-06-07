@@ -1,0 +1,12 @@
+.voting-button{
+  background-color: #0275D8;
+  color: azure;
+  border-radius: 0;
+  &.active {
+    background-color: #28a745;
+    border-color: #22803f;
+  }
+}
+.container {
+  padding: 10px;
+}

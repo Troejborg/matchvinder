@@ -1,0 +1,30 @@
+.list-group-item {
+  user-select: none;
+}
+
+.list-group input[type="checkbox"] {
+  display: none;
+}
+
+.list-group input[type="checkbox"] + .list-group-item {
+  cursor: pointer;
+}
+
+.list-group input[type="checkbox"] + .list-group-item:before {
+  content: "\2713";
+  color: transparent;
+  font-weight: bold;
+  margin-right: 1em;
+}
+
+.list-group input[type="checkbox"]:checked + .list-group-item {
+  background-color: #0275D8;
+  color: #FFF;
+  &.disabled-label{
+    background-color: #8ec7ff;
+  }
+}
+
+.list-group input[type="checkbox"]:checked + .list-group-item:before {
+  color: inherit;
+}
