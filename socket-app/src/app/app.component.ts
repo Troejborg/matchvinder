@@ -3,6 +3,8 @@ import {startWith} from 'rxjs/operators';
 import {VotingService} from './services/voting.service';
 import {Subscription} from 'rxjs';
 import {AppState} from './voting-state';
+import * as bootstrap from 'bootstrap';
+declare var $: any;
 
 @Component({
   selector: 'app-root',
@@ -15,7 +17,9 @@ export class AppComponent implements OnInit {
   public APP_STATES = AppState;
   public currentAppState: string;
   private stateSubscription: Subscription;
+  private isAuthenticated: boolean;
   constructor(private votingService: VotingService) {
+    this.isAuthenticated = false;
     this.activeView = 'voting';
     this.clientHeight = window.innerHeight;
     console.log(this.clientHeight);
@@ -30,5 +34,17 @@ export class AppComponent implements OnInit {
     ).subscribe(applicationState => {
       this.currentAppState = applicationState;
     });
+  }
+
+  tryActivateManagerView() {
+    if (this.isAuthenticated) {
+      this.activeView = 'manager';
+    } else {
+      $('#authModal').modal();
+    }
+  }
+
+  tryAuthenticate() {
+    
   }
 }

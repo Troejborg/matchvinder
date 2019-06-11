@@ -9,6 +9,7 @@ import { VotingComponent } from './components/voting/voting.component';
 import { ManagerViewComponent } from './components/manager-view/manager-view.component';
 import {ChartsModule} from 'ng2-charts';
 import { WaitingForMatchComponent } from './components/waiting-for-match/waiting-for-match.component';
+import * as AnythingThatIsNotDollarSignOrSymbolOrjQuery from 'jquery';
 
 const config: SocketIoConfig = { url: 'http://localhost:4444', options: {} };
 
