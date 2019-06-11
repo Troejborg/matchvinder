@@ -33,8 +33,9 @@ io.on('connection', socket => {
   const Events = {
     ON_APP_STATE_UPDATED: 'onApplicationStateUpdated',
     ELIGIBLE_PLAYERS_UPDATED: 'onEligiblePlayersUpdated',
-    VOTE_ENTRIES_UPDATED: 'voteEntriesUpdated'
-  }
+    VOTE_ENTRIES_UPDATED: 'voteEntriesUpdated',
+    AUTH_ATTEMPT_RESPONSE: 'passwordAttemptResponse'
+  };
   socket.on('getVotes', () => {
     console.log(`${voteEntries.length} votes were emitted`);
 
@@ -43,10 +44,6 @@ io.on('connection', socket => {
 
   socket.on('emitSelectedPlayers', selectedPlayers => {
     this.players = selectedPlayers;
-  });
-
-  socket.on('authenticate', password => {
-    io.emit('isAuthOK', password === 'supersecret')
   });
 
   socket.on('getApplicationState', () => {
@@ -86,15 +83,16 @@ io.on('connection', socket => {
 
     socket.emit(Events.VOTE_ENTRIES_UPDATED, voteEntries);
   });
-  console.log(`Socket ${socket.id} has connected`);
-});
 
-app.post('/authenticate', function (req, res) {
-  if(req.params.password === 'supersecret') {
-    res.send(true);
-  }else {
-    res.send(false)
-  }
+  socket.on('authenticate', passwordAttempt => {
+    let isPassOK = false;
+    if(passwordAttempt === 'supersecret') {
+      isPassOK = true;
+    }
+
+    socket.emit(Events.AUTH_ATTEMPT_RESPONSE, isPassOK);
+  });
+  console.log(`Socket ${socket.id} has connected`);
 });
 
 http.listen(4444, () => {

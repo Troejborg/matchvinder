@@ -4,6 +4,7 @@ import {VotingService} from './services/voting.service';
 import {Subscription} from 'rxjs';
 import {AppState} from './voting-state';
 import * as bootstrap from 'bootstrap';
+import {HttpClient} from '@angular/common/http';
 declare var $: any;
 
 @Component({
@@ -18,7 +19,9 @@ export class AppComponent implements OnInit {
   public currentAppState: string;
   private stateSubscription: Subscription;
   private isAuthenticated: boolean;
-  constructor(private votingService: VotingService) {
+  private authAttemptSub: Subscription;
+
+  constructor(private votingService: VotingService, private httpClient: HttpClient) {
     this.isAuthenticated = false;
     this.activeView = 'voting';
     this.clientHeight = window.innerHeight;
@@ -45,6 +48,13 @@ export class AppComponent implements OnInit {
   }
 
   tryAuthenticate() {
-    
+    const password = $('#passwordField');
+    this.votingService.tryAuth(password);
+    this.authAttemptSub = this.votingService.authAttempt.pipe(
+      startWith(false)
+    ).subscribe(isPassOK => {
+      this.isAuthenticated = isPassOK;
+      console.log('is authed?', isPassOK);
+    });
   }
 }

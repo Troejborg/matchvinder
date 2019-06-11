@@ -10,6 +10,7 @@ import { ManagerViewComponent } from './components/manager-view/manager-view.com
 import {ChartsModule} from 'ng2-charts';
 import { WaitingForMatchComponent } from './components/waiting-for-match/waiting-for-match.component';
 import * as AnythingThatIsNotDollarSignOrSymbolOrjQuery from 'jquery';
+import {HttpClientModule} from '@angular/common/http';
 
 const config: SocketIoConfig = { url: 'http://localhost:4444', options: {} };
 
@@ -23,6 +24,7 @@ const config: SocketIoConfig = { url: 'http://localhost:4444', options: {} };
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     FormsModule,
     ChartsModule,
     SocketIoModule.forRoot(config)

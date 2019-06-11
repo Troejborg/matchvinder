@@ -12,6 +12,7 @@ export class VotingService {
   voteEntries = this.socket.fromEvent<VoteEntry[]>('voteEntriesUpdated');
   eligiblePlayers = this.socket.fromEvent<Player[]>('onEligiblePlayersUpdated');
   votingState = this.socket.fromEvent<string>('onApplicationStateUpdated');
+  authAttempt = this.socket.fromEvent<boolean>('passwordAttemptResponse');
 
   constructor(private socket: Socket) { }
 
@@ -41,5 +42,9 @@ export class VotingService {
 
   emitSelectedPlayers(selectedPlayers: Player[]) {
     this.socket.emit('emitSelectedPlayers', selectedPlayers);
+  }
+
+  tryAuth(password: string) {
+    this.socket.emit('authenticate', password);
   }
 }
