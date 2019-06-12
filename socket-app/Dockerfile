@@ -1,17 +1,39 @@
-FROM nginx
-COPY static-html-directory /usr/share/nginx/html
+#############
+### build ###
+#############
 
-# Install app dependencies
-# A wildcard is used to ensure both package.json AND package-lock.json are copied
-# where available (npm@5+)
-COPY package*.json ./
+# base image
+FROM node:12.2.0 as build
 
+# set working directory
+WORKDIR /app
+
+# add `/app/node_modules/.bin` to $PATH
+ENV PATH /app/node_modules/.bin:$PATH
+
+# install and cache app dependencies
+COPY package.json /app/package.json
 RUN npm install
-# If you are building your code for production
-# RUN npm ci --only=production
+RUN npm install -g @angular/cli@7.3.9
 
-# Bundle app source
-COPY . .
+# add app
+COPY . /app
 
+# generate build
+RUN ng build --output-path=dist
+
+############
+### prod ###
+############
+
+# base image
+FROM nginx:1.16.0-alpine
+
+# copy artifact build from the 'build environment'
+COPY --from=build /app/dist /usr/share/nginx/html
+
+# expose port 80
 EXPOSE 80
-CMD [ "npm", "start" ]
+
+# run nginx
+CMD ["nginx", "-g", "daemon off;"]
