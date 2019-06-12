@@ -1,5 +1,13 @@
 <div class="container" *ngIf="selectedPlayer == undefined">
-  <button type="button" class="btn btn-lg btn-block voting-button" [ngClass]="{ 'active': selectedPlayer && selectedPlayer.name == player.name }" *ngFor="let player of players" (click)="publishVote(player)">{{player.name}}</button>
+  <div class="card voting-card" *ngFor="let player of players">
+    <div class="card-body">
+      <h5 class="card-title"><span style="color: azure; background-color: #0275D8; padding: 4px; margin-right: 6px; border-radius: 4px;">{{player.shirtNo}}</span>{{player.name}}</h5>
+      <p class="card-text">{{player.title}}</p>
+      <div style="display: flex; justify-content: flex-end">
+        <button type="button" class="btn btn-outline-primary" [ngClass]="{ 'active': selectedPlayer && selectedPlayer.name == player.name }" (click)="publishVote(player)">Stem</button>
+      </div>
+    </div>
+  </div>
 </div>
 <div *ngIf="selectedPlayer">
   <app-voting-progress [maxPlayers]="players.length" ></app-voting-progress>

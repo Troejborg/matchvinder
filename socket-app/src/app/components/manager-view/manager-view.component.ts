@@ -1,9 +1,9 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Player} from '../../models/player';
 import {VotingService} from '../../services/voting.service';
-import {startWith} from "rxjs/operators";
-import {Subscription} from "rxjs";
-import {AppState} from "../../voting-state";
+import {startWith} from 'rxjs/operators';
+import {Subscription} from 'rxjs';
+import {AppState} from '../../voting-state';
 
 @Component({
   selector: 'app-manager-view',
@@ -12,29 +12,29 @@ import {AppState} from "../../voting-state";
 })
 export class ManagerViewComponent implements OnInit, OnDestroy {
   public players = [
-    new Player('Kenneth A', 'Title', 1),
-    new Player('Justinus T.', 'Title', 2),
-    new Player('Karma', 'Jon Dahl Thomassen', 3),
-    new Player('Kirke', 'Jens Lyn', 4),
-    new Player('Kenneth Meik', 'Jens Lyn', 5),
-    new Player('Michael Søby', 'Mr. Jeg tager lige et træk mere', 6),
-    new Player('Casper Bo', 'The Wall', 7),
-    new Player('Ola', 'The Wall', 8),
-    new Player('Ronnie', 'Slow moving Attacker', 9),
-    new Player('Smedegaard', 'Tordenstøvlen', 10),
-    new Player('Martin Wolhardt', 'Tordenstøvlen', 11),
-    new Player('Morten Skovby', 'Tordenstøvlen', 12),
-    new Player('Jonas Madsen', 'Tordenstøvlen', 13),
-    new Player('Søren Langhoff', 'Tordenstøvlen', 14),
-    new Player('Tom Larsen', 'Forest Gump', 15),
-    new Player('Hjerrild', 'Tordenstøvlen', 16),
-    new Player('Chris Jørgensen', 'Tordenstøvlen', 17),
-    new Player('Kenneth Jørgensen', 'Tordenstøvlen', 18),
-    new Player('Kasper Bach', 'Tordenstøvlen', 19),
-    new Player('T fra V', 'Tordenstøvlen', 20),
-    new Player('Meldrup', 'Tordenstøvlen', 21),
-    new Player('Kidmose', 'Tordenstøvlen', 22)
-
+    new Player('Kidmose', 'INSERT TITLE', 1),
+    new Player('Tom Larsen', 'Forest Gump', 2),
+    new Player('Martin Wolhardt', 'Tordenstøvlen', 4),
+    new Player('Smedegaard', 'INSERT TITLE', 5),
+    new Player('Bregenov', '', 7),
+    new Player('Karma', 'Jon Dahl Thomassen', 9),
+    new Player('Kirke', 'Mr. Glass', 10),
+    new Player('Michael Søby', 'Mr. Jeg tager lige et træk mere', 11),
+    new Player('Kenneth A', 'Title', 12),
+    new Player('Casper Bo', 'The Wall', 13),
+    new Player('Ronnie', 'Slow moving Attacker', 14),
+    new Player('Hjerrild', 'INSERT TITLE', 21),
+    new Player('Justinus T.', 'Title', 22),
+    new Player('Chris Jørgensen', 'INSERT TITLE', 25),
+    new Player('T fra V', 'INSERT TITLE', 32),
+    new Player('Jonas Madsen', 'INSERT TITLE', 33),
+    new Player('Søren Langhoff', 'INSERT TITLE', 44),
+    new Player('Meldrup', 'INSERT TITLE', 88),
+    new Player('Kenneth Meik', 'INSERT TITLE', 99),
+    new Player('Kasper Bach', 'INSERT TITLE', 95),
+    new Player('Kenneth Jørgensen', 'INSERT TITLE', 96),
+    new Player('Morten Skovby', 'INSERT TITLE', 97),
+    new Player('Ola', 'INSERT TITLE', 98)
   ];
   public selectedPlayers: Player[] = [];
   private stateSubscription: Subscription;
