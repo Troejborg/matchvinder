@@ -10,7 +10,7 @@ const APP_STATE = {
 };
 
 let playerVotes = [];
-
+let historicMatches = [];
 let votingState = APP_STATE.WAITING_FOR_MATCH;
 
 function getVotingState() {
@@ -35,11 +35,12 @@ io.on('connection', socket => {
     ELIGIBLE_PLAYERS_UPDATED: 'onEligiblePlayersUpdated',
     VOTE_ENTRIES_UPDATED: 'voteEntriesUpdated',
     AUTH_ATTEMPT_RESPONSE: 'passwordAttemptResponse',
-    VOTE_ENTRIES_SUM: 'onVoteEntriesSumChanged'
+    VOTE_ENTRIES_SUM: 'onVoteEntriesSumChanged',
+    VOTE_RESULT_CONFIRMED: 'onResultConfirmed'
   };
-  socket.on('getVotes', () => {
+  socket.on('getVoteResult', () => {
 
-    io.emit(Events.VOTE_ENTRIES_UPDATED, playerVotes);
+    io.emit(Events.VOTE_RESULT_CONFIRMED, playerVotes);
   });
 
   socket.on('getVoteEntriesSum', () => {
@@ -80,6 +81,10 @@ io.on('connection', socket => {
     io.emit(Events.ELIGIBLE_PLAYERS_UPDATED, this.players);
   });
 
+  socket.on('getVoteResult', () => {
+    io.emit(Events.VOTE_RESULT_CONFIRMED, playerVotes);
+  });
+
   socket.on('stopVoting', () => {
     playerVotes = [];
     voteEntries.forEach(voteEntry => {
@@ -87,12 +92,13 @@ io.on('connection', socket => {
         playerVotes.push({player: voteEntry.player, votes: 1});
       }
     });
+
     setAndEmitNewApplicationState(APP_STATE.VOTING_FINISHED);
   });
 
   socket.on('publishVote', newVoteEntry => {
     console.log(`Vote received by ${newVoteEntry.voterId} for player ${newVoteEntry.player.name}`);
-    voteEntries = voteEntries.filter( voteEntry => voteEntry.voteEntry !== newVoteEntry.voterId);
+    // voteEntries = voteEntries.filter( voteEntry => voteEntry.voteEntry !== newVoteEntry.voterId);
     voteEntries.push({
       "player": newVoteEntry.player,
       "voteEntry": newVoteEntry.voterId
@@ -102,15 +108,20 @@ io.on('connection', socket => {
   });
 
   socket.on('authenticate', passwordAttempt => {
+    console.log('Logging on...');
     let isPassOK = false;
     if(passwordAttempt === 'supersecret') {
       isPassOK = true;
-    }
-    console.log(`Attempted password ${passwordAttempt} was found to be: ${isPassOK ? 'OK' : 'not OK'}`);
+      console.log(`Attempted password ${passwordAttempt} was found to be: ${isPassOK ? 'OK' : 'not OK'}`);}
+
     socket.emit(Events.AUTH_ATTEMPT_RESPONSE, isPassOK);
   });
+
   console.log(`Socket ${socket.id} has connected`);
 });
+app.get('/history', function (req, res) {
+  res.send(historicMatches);
+})
 
 http.listen(4444, () => {
   console.log('Listening on port 4444');

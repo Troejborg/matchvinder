@@ -17,15 +17,13 @@ export class PlayerVotesComponent implements OnInit, OnDestroy {
     responsive: true,
     scales: {
       xAxes: [{
-        barPercentage: 0.5,
+        barPercentage: 1,
         barThickness: 1,
         maxBarThickness: 3,
         minBarLength: 2,
         ticks: {
           beginAtZero: true,
-          steps: 10,
-          stepValue: 1,
-          max: 10
+          stepValue: 1
         }
       }]
     },
@@ -46,8 +44,8 @@ export class PlayerVotesComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.votingService.getVotes();
-    this.voteSub = this.votingService.voteEntries.pipe(
+    this.votingService.getVoteResult();
+    this.voteSub = this.votingService.voteResultConfirmed.pipe(
       startWith([])
     ).subscribe(voteEntries => {
       if (voteEntries && voteEntries.length > 0) {

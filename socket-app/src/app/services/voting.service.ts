@@ -14,6 +14,7 @@ export class VotingService {
   applicationState = this.socket.fromEvent<string>('onApplicationStateUpdated');
   authAttempt = this.socket.fromEvent<boolean>('passwordAttemptResponse');
   voteEntriesSum = this.socket.fromEvent<number>('onVoteEntriesSumChanged');
+  voteResultConfirmed = this.socket.fromEvent<any[]>('onResultConfirmed');
 
   constructor(private socket: Socket) { }
 
@@ -29,7 +30,7 @@ export class VotingService {
     this.socket.emit('startVoting', eligiblePlayers);
   }
 
-  getVotes() {
+  getVoteResult() {
     this.socket.emit('getVoteResult');
   }
 

@@ -18,7 +18,6 @@ export class AppComponent implements OnInit {
   public currentAppState: string;
   private stateSubscription: Subscription;
   private isAuthenticated: boolean;
-  private authAttemptSub: Subscription;
   private inputPassword: any;
 
   constructor(private votingService: VotingService) {
@@ -48,7 +47,7 @@ export class AppComponent implements OnInit {
 
   tryAuthenticate() {
     this.votingService.tryAuth(this.inputPassword);
-    this.authAttemptSub = this.votingService.authAttempt.pipe(
+    this.votingService.authAttempt.pipe(
       startWith(false)
     ).subscribe(isPassOK => {
       this.isAuthenticated = isPassOK;
@@ -56,6 +55,7 @@ export class AppComponent implements OnInit {
       if (isPassOK) {
         $('#authModal').modal('hide');
         this.activeView = 'manager';
+
       }
     });
   }
