@@ -4,6 +4,10 @@
 /dist
 /tmp
 /out-tsc
+socket-app/dist/*
+socket-app/node_modules/*
+socket-server/node_modules/*
+
 
 # dependencies
 /node_modules

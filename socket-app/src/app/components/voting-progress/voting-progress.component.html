@@ -1,0 +1,23 @@
+<div class="container">
+  <div class="counter-text">
+    {{voteEntriesTotal}} / 14
+<!--    <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>-->
+  </div>
+  <div class="inner-container">
+    <round-progress
+      [current]="voteEntriesTotal"
+      [max]="14"
+      [color]="'#3678ff'"
+      [background]="'#eaeaea'"
+      [radius]="100"
+      [stroke]="5"
+      [semicircle]="false"
+      [rounded]="false"
+      [clockwise]="true"
+      [duration]="800"
+      [animation]="'easeInOutQuart'"
+      [animationDelay]="0">
+    </round-progress>
+    <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+  </div>
+</div>
