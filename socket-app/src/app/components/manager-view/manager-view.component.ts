@@ -12,29 +12,29 @@ import {AppState} from '../../voting-state';
 })
 export class ManagerViewComponent implements OnInit, OnDestroy {
   public players = [
-    new Player('Kidmose', 'INSERT TITLE', 1),
+    new Player('Kidmose', 'Den rigtige Houdini', 1),
     new Player('Tom Larsen', 'Forest Gump', 2),
     new Player('Martin Wolhardt', 'Tordenstøvlen', 4),
-    new Player('Smedegaard', 'INSERT TITLE', 5),
-    new Player('Bregenov', '', 7),
+    new Player('Smedegaard', 'Tractoren', 5),
+    new Player('Bregenov', 'Manden med planen', 7),
     new Player('Karma', 'Jon Dahl Thomassen', 9),
     new Player('Kirke', 'Mr. Glass', 10),
-    new Player('Michael Søby', 'Mr. Jeg tager lige et træk mere', 11),
-    new Player('Kenneth A', 'Title', 12),
-    new Player('Casper Bo', 'The Wall', 13),
+    new Player('Michael Søby', 'Mr. \'Jeg tager lige et træk mere\'', 11),
+    new Player('Kenneth A', 'Direktøren', 12),
+    new Player('Casper Bo', 'Væggen', 13),
     new Player('Ronnie', 'Slow moving Attacker', 14),
-    new Player('Hjerrild', 'INSERT TITLE', 21),
-    new Player('Justinus T.', 'Title', 22),
-    new Player('Chris Jørgensen', 'INSERT TITLE', 25),
-    new Player('T fra V', 'INSERT TITLE', 32),
-    new Player('Jonas Madsen', 'INSERT TITLE', 33),
-    new Player('Søren Langhoff', 'INSERT TITLE', 44),
-    new Player('Meldrup', 'INSERT TITLE', 88),
-    new Player('Kenneth Meik', 'INSERT TITLE', 99),
-    new Player('Kasper Bach', 'INSERT TITLE', 95),
-    new Player('Kenneth Jørgensen', 'INSERT TITLE', 96),
-    new Player('Morten Skovby', 'INSERT TITLE', 97),
-    new Player('Ola', 'INSERT TITLE', 98)
+    new Player('Hjerrild', 'Fitzhjerrild', 21),
+    new Player('Justinus T.', 'Den hårdtslående færing', 22),
+    new Player('Chris Jørgensen', '\'Bamse\'', 25),
+    new Player('Thomas Andersen', 'T fra V', 32),
+    new Player('Jonas Madsen', 'Halvskadet Fysioterapeut', 33),
+    new Player('Søren Langhoff', 'New kid on the block #1', 44),
+    new Player('Meldrup', 'Motorrummet', 88),
+    new Player('Kenneth Meik', 'Fyrtårnet', 99),
+    new Player('Kasper Bach', 'New kid on the block #2', 95),
+    new Player('Kenneth Jørgensen', 'Den røde fare', 96),
+    new Player('Morten Skovby', 'New kid on the block #3', 97),
+    new Player('Ola', '\'Jeg giver en stripper hvis vi ender i top 10\'', 98)
   ];
   public selectedPlayers: Player[] = [];
   private stateSubscription: Subscription;

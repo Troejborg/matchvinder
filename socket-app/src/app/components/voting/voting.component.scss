@@ -11,17 +11,17 @@
   padding: 10px;
 }
 
+.voting-card {
+  margin-bottom: 5px;
+  -webkit-box-shadow: 3px 3px 5px -1px rgba(65,86,148,1);
+  -moz-box-shadow: 3px 3px 5px -1px rgba(65,86,148,1);
+  box-shadow: 3px 3px 5px -1px rgba(65,86,148,1);
+}
+
 .shirt-label {
   color: azure;
   background-color: #0275D8;
   padding: 4px;
   margin-right: 6px;
   border-radius: 4px;
-}
-
-.voting-card {
-  margin-bottom: 5px;
-  -webkit-box-shadow: 3px 3px 5px -1px rgba(65,86,148,1);
-  -moz-box-shadow: 3px 3px 5px -1px rgba(65,86,148,1);
-  box-shadow: 3px 3px 5px -1px rgba(65,86,148,1);
 }
