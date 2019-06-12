@@ -13,7 +13,7 @@ import * as AnythingThatIsNotDollarSignOrSymbolOrjQuery from 'jquery';
 import {RoundProgressModule} from 'angular-svg-round-progressbar';
 import { VotingProgressComponent } from './components/voting-progress/voting-progress.component';
 
-const config: SocketIoConfig = { url: 'http://localhost:4444', options: {} };
+const config: SocketIoConfig = { url: 'http://134.209.93.63:4444', options: {} };
 
 @NgModule({
   declarations: [
