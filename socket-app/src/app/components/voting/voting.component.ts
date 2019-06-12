@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Player} from '../../models/player';
 import {VotingService} from '../../services/voting.service';
 import {startWith} from 'rxjs/operators';
@@ -9,7 +9,7 @@ import {Subscription} from 'rxjs';
   templateUrl: './voting.component.html',
   styleUrls: ['./voting.component.scss']
 })
-export class VotingComponent implements OnInit {
+export class VotingComponent implements OnInit, OnDestroy {
   public playerSub: Subscription;
   public players: Player[] | any[];
   public selectedPlayer: Player;
@@ -72,5 +72,9 @@ export class VotingComponent implements OnInit {
     }
 
     return userId;
+  }
+
+  ngOnDestroy(): void {
+    this.playerSub.unsubscribe();
   }
 }

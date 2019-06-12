@@ -11,8 +11,9 @@ import {Player} from '../models/player';
 export class VotingService {
   voteEntries = this.socket.fromEvent<VoteEntry[]>('voteEntriesUpdated');
   eligiblePlayers = this.socket.fromEvent<Player[]>('onEligiblePlayersUpdated');
-  votingState = this.socket.fromEvent<string>('onApplicationStateUpdated');
+  applicationState = this.socket.fromEvent<string>('onApplicationStateUpdated');
   authAttempt = this.socket.fromEvent<boolean>('passwordAttemptResponse');
+  voteEntriesSum = this.socket.fromEvent<number>('onVoteEntriesSumChanged');
 
   constructor(private socket: Socket) { }
 
@@ -29,7 +30,11 @@ export class VotingService {
   }
 
   getVotes() {
-    this.socket.emit('getVotes');
+    this.socket.emit('getVoteResult');
+  }
+
+  getVoteEntriesSum() {
+    this.socket.emit('getVoteEntriesSum');
   }
 
   publishVote(voteEntry: VoteEntry) {

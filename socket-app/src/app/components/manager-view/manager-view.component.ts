@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Player} from '../../models/player';
 import {VotingService} from '../../services/voting.service';
 import {startWith} from "rxjs/operators";
@@ -10,7 +10,7 @@ import {AppState} from "../../voting-state";
   templateUrl: './manager-view.component.html',
   styleUrls: ['./manager-view.component.scss']
 })
-export class ManagerViewComponent implements OnInit {
+export class ManagerViewComponent implements OnInit, OnDestroy {
   public players = [
     new Player('Kenneth Andersen', 'Title', 1),
     new Player('Justinus T.', 'Title', 2),
@@ -40,14 +40,37 @@ export class ManagerViewComponent implements OnInit {
   private stateSubscription: Subscription;
   public APP_STATES = AppState;
   public currentAppState: string;
+  private voteEntriesSub: Subscription;
+  private voteEntriesTotal: number;
 
   constructor(private votingService: VotingService) { }
 
   ngOnInit() {
-    this.stateSubscription = this.votingService.votingState.pipe(
+    this.setupSubscriptions();
+  }
+
+  ngOnDestroy() {
+    this.tearDownSubscriptions();
+  }
+
+  private tearDownSubscriptions() {
+    this.stateSubscription.unsubscribe();
+    this.voteEntriesSub.unsubscribe();
+  }
+
+  private setupSubscriptions() {
+    this.votingService.getApplicationState();
+    this.stateSubscription = this.votingService.applicationState.pipe(
       startWith(AppState.WAITING_FOR_MATCH)
     ).subscribe(votingState => {
       this.currentAppState = votingState;
+    });
+
+    this.votingService.getVoteEntriesSum();
+    this.voteEntriesSub = this.votingService.voteEntriesSum.pipe(
+      startWith(0)
+    ).subscribe(voteEntriesSum => {
+      this.voteEntriesTotal = voteEntriesSum;
     });
   }
 

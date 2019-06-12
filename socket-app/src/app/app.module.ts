@@ -10,7 +10,8 @@ import { ManagerViewComponent } from './components/manager-view/manager-view.com
 import {ChartsModule} from 'ng2-charts';
 import { WaitingForMatchComponent } from './components/waiting-for-match/waiting-for-match.component';
 import * as AnythingThatIsNotDollarSignOrSymbolOrjQuery from 'jquery';
-import {HttpClientModule} from '@angular/common/http';
+import {RoundProgressModule} from "angular-svg-round-progressbar";
+import { VotingProgressComponent } from './components/voting-progress/voting-progress.component';
 
 const config: SocketIoConfig = { url: 'http://localhost:4444', options: {} };
 
@@ -20,14 +21,15 @@ const config: SocketIoConfig = { url: 'http://localhost:4444', options: {} };
     PlayerVotesComponent,
     VotingComponent,
     ManagerViewComponent,
-    WaitingForMatchComponent
+    WaitingForMatchComponent,
+    VotingProgressComponent
   ],
   imports: [
     BrowserModule,
-    HttpClientModule,
     FormsModule,
     ChartsModule,
-    SocketIoModule.forRoot(config)
+    SocketIoModule.forRoot(config),
+    RoundProgressModule
   ],
   providers: [],
   bootstrap: [AppComponent]

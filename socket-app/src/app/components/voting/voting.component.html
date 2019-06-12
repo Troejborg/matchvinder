@@ -1,3 +1,6 @@
-<div class="container">
+<div class="container" *ngIf="selectedPlayer == undefined">
   <button type="button" class="btn btn-lg btn-block voting-button" [ngClass]="{ 'active': selectedPlayer && selectedPlayer.name == player.name }" *ngFor="let player of players" (click)="publishVote(player)">{{player.name}}</button>
+</div>
+<div *ngIf="selectedPlayer">
+  <app-voting-progress></app-voting-progress>
 </div>

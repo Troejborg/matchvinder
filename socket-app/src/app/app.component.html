@@ -20,20 +20,20 @@
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Indtast kode</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <p>Type in the manager password</p>
+        <p>Indtast den meget hemmelige kode</p>
         <div class="input-group flex-nowrap">
-          <input id="passwordField" type="password" class="form-control" aria-label="Password" aria-describedby="addon-wrapping">
+          <input id="passwordField" type="password" class="form-control" aria-describedby="addon-wrapping" [(ngModel)]="inputPassword">
         </div>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" (click)="tryAuthenticate()" >Submit</button>
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Luk</button>
+        <button type="button" class="btn btn-primary" (click)="tryAuthenticate()" >Log ind</button>
       </div>
     </div>
   </div>

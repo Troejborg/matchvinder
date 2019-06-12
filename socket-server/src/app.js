@@ -34,12 +34,18 @@ io.on('connection', socket => {
     ON_APP_STATE_UPDATED: 'onApplicationStateUpdated',
     ELIGIBLE_PLAYERS_UPDATED: 'onEligiblePlayersUpdated',
     VOTE_ENTRIES_UPDATED: 'voteEntriesUpdated',
-    AUTH_ATTEMPT_RESPONSE: 'passwordAttemptResponse'
+    AUTH_ATTEMPT_RESPONSE: 'passwordAttemptResponse',
+    VOTE_ENTRIES_SUM: 'onVoteEntriesSumChanged'
   };
   socket.on('getVotes', () => {
-    console.log(`${voteEntries.length} votes were emitted`);
 
     io.emit(Events.VOTE_ENTRIES_UPDATED, playerVotes);
+  });
+
+  socket.on('getVoteEntriesSum', () => {
+    console.log(`${voteEntries.length} votes were emitted`);
+
+    io.emit(Events.VOTE_ENTRIES_SUM, voteEntries.length);
   });
 
   socket.on('emitSelectedPlayers', selectedPlayers => {
@@ -58,7 +64,7 @@ io.on('connection', socket => {
     this.players = eligiblePlayers;
     playerVotes = [];
     setVotingState(APP_STATE.VOTING_ONGOING);
-    io.emit(Events.ON_APP_STATE_UPDATED, getVotingState());f
+    io.emit(Events.ON_APP_STATE_UPDATED, getVotingState());
     io.emit(Events.ELIGIBLE_PLAYERS_UPDATED, this.players);
   });
 
@@ -81,7 +87,7 @@ io.on('connection', socket => {
       "voteEntry": newVoteEntry.voterId
     });
 
-    socket.emit(Events.VOTE_ENTRIES_UPDATED, voteEntries);
+    io.emit(Events.VOTE_ENTRIES_SUM, voteEntries.length);
   });
 
   socket.on('authenticate', passwordAttempt => {
@@ -89,7 +95,7 @@ io.on('connection', socket => {
     if(passwordAttempt === 'supersecret') {
       isPassOK = true;
     }
-
+    console.log(`Attempted password ${passwordAttempt} was found to be: ${isPassOK ? 'OK' : 'not OK'}`);
     socket.emit(Events.AUTH_ATTEMPT_RESPONSE, isPassOK);
   });
   console.log(`Socket ${socket.id} has connected`);

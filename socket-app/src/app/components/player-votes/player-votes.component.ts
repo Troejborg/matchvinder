@@ -1,4 +1,4 @@
-import {Component, OnInit, ViewChild} from '@angular/core';
+import {Component, OnDestroy, OnInit, ViewChild} from '@angular/core';
 import {VotingService} from '../../services/voting.service';
 import {startWith} from 'rxjs/operators';
 import {Subscription} from 'rxjs';
@@ -9,7 +9,8 @@ import {BaseChartDirective} from 'ng2-charts';
   templateUrl: './player-votes.component.html',
   styleUrls: ['./player-votes.component.scss']
 })
-export class PlayerVotesComponent implements OnInit {
+export class PlayerVotesComponent implements OnInit, OnDestroy {
+
 
   public barChartOptions = {
     scaleShowVerticalLines: false,
@@ -20,7 +21,6 @@ export class PlayerVotesComponent implements OnInit {
         barThickness: 1,
         maxBarThickness: 3,
         minBarLength: 2,
-        display: true,
         ticks: {
           beginAtZero: true,
           steps: 10,
@@ -40,6 +40,10 @@ export class PlayerVotesComponent implements OnInit {
   @ViewChild(BaseChartDirective) public chart: BaseChartDirective;
 
   constructor(private votingService: VotingService) { }
+
+  ngOnDestroy(): void {
+    this.voteSub.unsubscribe();
+  }
 
   ngOnInit() {
     this.votingService.getVotes();
