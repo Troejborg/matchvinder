@@ -48,6 +48,18 @@ io.on('connection', socket => {
     io.emit(Events.VOTE_ENTRIES_SUM, voteEntries.length);
   });
 
+  function setAndEmitNewApplicationState(newState) {
+    setVotingState(newState);
+    io.emit(Events.ON_APP_STATE_UPDATED, getVotingState());
+  }
+
+  socket.on('resetEverything', () => {
+    voteEntries = [];
+    playerVotes = [];
+    setAndEmitNewApplicationState(APP_STATE.WAITING_FOR_MATCH);
+    console.log(`Resetting Everything! vote Entries are now ${voteEntries.length},playerVotes are ${playerVotes.length} and app state is: ${votingState}`);
+  });
+
   socket.on('emitSelectedPlayers', selectedPlayers => {
     this.players = selectedPlayers;
   });
@@ -62,21 +74,20 @@ io.on('connection', socket => {
 
   socket.on('startVoting', eligiblePlayers => {
     this.players = eligiblePlayers;
+    voteEntries = [];
     playerVotes = [];
-    setVotingState(APP_STATE.VOTING_ONGOING);
-    io.emit(Events.ON_APP_STATE_UPDATED, getVotingState());
+    setAndEmitNewApplicationState(APP_STATE.VOTING_ONGOING)
     io.emit(Events.ELIGIBLE_PLAYERS_UPDATED, this.players);
   });
 
   socket.on('stopVoting', () => {
-    setVotingState(APP_STATE.VOTING_FINISHED);
     playerVotes = [];
     voteEntries.forEach(voteEntry => {
       if (!voteForExistingPlayer(playerVotes, voteEntry.player)) {
         playerVotes.push({player: voteEntry.player, votes: 1});
       }
     });
-    io.emit(Events.ON_APP_STATE_UPDATED, getVotingState());
+    setAndEmitNewApplicationState(APP_STATE.VOTING_FINISHED);
   });
 
   socket.on('publishVote', newVoteEntry => {

@@ -12,16 +12,16 @@ import {AppState} from "../../voting-state";
 })
 export class ManagerViewComponent implements OnInit, OnDestroy {
   public players = [
-    new Player('Kenneth Andersen', 'Title', 1),
+    new Player('Kenneth A', 'Title', 1),
     new Player('Justinus T.', 'Title', 2),
-    new Player('Karma Rasmussen', 'Jon Dahl Thomassen', 3),
-    new Player('Casper Kirkegaard', 'Jens Lyn', 4),
+    new Player('Karma', 'Jon Dahl Thomassen', 3),
+    new Player('Kirke', 'Jens Lyn', 4),
     new Player('Kenneth Meik', 'Jens Lyn', 5),
     new Player('Michael Søby', 'Mr. Jeg tager lige et træk mere', 6),
-    new Player('Casper Bo Jensen', 'The Wall', 7),
+    new Player('Casper Bo', 'The Wall', 7),
     new Player('Ola Thomassen', 'The Wall', 8),
     new Player('Ronnie Trøjborg', 'Slow moving Attacker', 9),
-    new Player('Jacob Smedegaard', 'Tordenstøvlen', 10),
+    new Player('Smedegaard', 'Tordenstøvlen', 10),
     new Player('Martin Wolhardt', 'Tordenstøvlen', 11),
     new Player('Morten Skovby', 'Tordenstøvlen', 12),
     new Player('Jonas Madsen', 'Tordenstøvlen', 13),
@@ -31,9 +31,9 @@ export class ManagerViewComponent implements OnInit, OnDestroy {
     new Player('Chris Jørgensen', 'Tordenstøvlen', 17),
     new Player('Kenneth Jørgensen', 'Tordenstøvlen', 18),
     new Player('Kasper Bach', 'Tordenstøvlen', 19),
-    new Player('Thomas Andersen', 'Tordenstøvlen', 20),
-    new Player('Claus Meldrup', 'Tordenstøvlen', 21),
-    new Player('Christian Kidmose', 'Tordenstøvlen', 22)
+    new Player('T fra V', 'Tordenstøvlen', 20),
+    new Player('Meldrup', 'Tordenstøvlen', 21),
+    new Player('Kidmose', 'Tordenstøvlen', 22)
 
   ];
   public selectedPlayers: Player[] = [];
@@ -93,5 +93,9 @@ export class ManagerViewComponent implements OnInit, OnDestroy {
 
   stopVoting() {
     this.votingService.finishVote();
+  }
+
+  resetVote() {
+    this.votingService.resetVote();
   }
 }

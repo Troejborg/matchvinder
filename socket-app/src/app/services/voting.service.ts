@@ -52,4 +52,8 @@ export class VotingService {
   tryAuth(password: string) {
     this.socket.emit('authenticate', password);
   }
+
+  resetVote() {
+    this.socket.emit('resetEverything');
+  }
 }
