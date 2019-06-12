@@ -8,12 +8,13 @@
     </div>
   </div>
   <nav class="navbar fixed-bottom navbar-light bg-light">
-    <p>{{selectedPlayers.length}} valgte spillere</p>
+    <span></span>
+    {{selectedPlayers.length}} valgte spillere
     <button (click)="startVoting()" class="btn btn-outline-success">Start</button>
   </nav>
 </div>
 <div *ngIf="currentAppState === APP_STATES.VOTING_ONGOING">
-  <app-voting-progress></app-voting-progress>
+  <app-voting-progress [maxPlayers]="selectedPlayers.length" ></app-voting-progress>
   <nav class="navbar fixed-bottom navbar-light bg-light">
     <button (click)="resetVote()" class="btn btn-outline-danger">Annullér alt</button>
     <button (click)="stopVoting()" class="btn btn-outline-primary">Afslut votering</button>

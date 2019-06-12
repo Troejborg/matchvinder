@@ -1,4 +1,4 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Component, Input, OnDestroy, OnInit} from '@angular/core';
 import {Player} from '../../models/player';
 import {VotingService} from '../../services/voting.service';
 import {startWith} from 'rxjs/operators';
@@ -18,7 +18,6 @@ export class VotingComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.voterId = this.getOrCreateId();
-
     this.votingService.getEligiblePlayers();
     this.playerSub = this.votingService.eligiblePlayers.pipe(
       startWith([])
