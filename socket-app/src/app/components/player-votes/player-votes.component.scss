@@ -14,3 +14,48 @@ swiper{
 .voting-page{
   padding: 5px 40px;
 }
+@import url('https://fonts.googleapis.com/css?family=Overpass+Mono:600');
+*, *::before, *::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: inherit;
+}
+body {
+  display: flex;
+  box-sizing: border-box;
+  background-color: hsl(210, 5%, 12%);
+}
+svg {
+  margin: auto;
+  width: 100vmin;
+}
+g > text {
+  text-anchor: middle;
+  font-size: 400px;
+  font-family: Overpass Mono, monospace;
+  fill: #0275D8;
+  opacity: 0;
+  animation-name: opac;
+  animation-duration: 11s;
+  animation-timing-function: linear;
+  animation-iteration-count: 1;
+}
+g > text:nth-child(1) { animation-delay: 0s; }
+g > text:nth-child(2) { animation-delay: 1s; }
+g > text:nth-child(3) { animation-delay: 2s; }
+g > text:nth-child(4) { animation-delay: 3s; }
+g > text:nth-child(5) { animation-delay: 4s; }
+g > text:nth-child(6) { animation-delay: 5s; }
+g > text:nth-child(7) { animation-delay: 6s; }
+g > text:nth-child(8) { animation-delay: 7s; }
+g > text:nth-child(9) { animation-delay: 8s; }
+g > text:nth-child(10) { animation-delay: 9s; }
+g > text:nth-child(11) { animation-delay: 10s; }
+
+@keyframes opac {
+  0% { opacity: 0; }
+  7.5% { opacity: 1; }
+  10% { opacity: 1; }
+  15% { opacity: 0; }
+  100% { opacity: 0; }
+}
