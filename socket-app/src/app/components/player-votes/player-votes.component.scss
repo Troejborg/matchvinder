@@ -36,21 +36,15 @@ g > text {
   fill: #0275D8;
   opacity: 0;
   animation-name: opac;
-  animation-duration: 11s;
+  animation-duration: 6s;
   animation-timing-function: linear;
-  animation-iteration-count: 1;
+  animation-iteration-count: infinite;
 }
-g > text:nth-child(1) { animation-delay: 0s; }
-g > text:nth-child(2) { animation-delay: 1s; }
-g > text:nth-child(3) { animation-delay: 2s; }
-g > text:nth-child(4) { animation-delay: 3s; }
-g > text:nth-child(5) { animation-delay: 4s; }
-g > text:nth-child(6) { animation-delay: 5s; }
-g > text:nth-child(7) { animation-delay: 6s; }
-g > text:nth-child(8) { animation-delay: 7s; }
-g > text:nth-child(9) { animation-delay: 8s; }
-g > text:nth-child(10) { animation-delay: 9s; }
-g > text:nth-child(11) { animation-delay: 10s; }
+//g > text:nth-child(7) { animation-delay: 6s; }
+//g > text:nth-child(8) { animation-delay: 7s; }
+//g > text:nth-child(9) { animation-delay: 8s; }
+//g > text:nth-child(10) { animation-delay: 9s; }
+//g > text:nth-child(11) { animation-delay: 10s; }
 
 @keyframes opac {
   0% { opacity: 0; }

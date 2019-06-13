@@ -3,11 +3,13 @@ import {Player} from '../../models/player';
 import {VotingService} from '../../services/voting.service';
 import {startWith} from 'rxjs/operators';
 import {Subscription} from 'rxjs';
+import {Animations} from '../../animated/animations';
 
 @Component({
   selector: 'app-voting',
   templateUrl: './voting.component.html',
-  styleUrls: ['./voting.component.scss']
+  styleUrls: ['./voting.component.scss'],
+  animations: Animations.slideInOut
 })
 export class VotingComponent implements OnInit, OnDestroy {
   public playerSub: Subscription;

@@ -11,15 +11,15 @@ import {VotingService} from '../../services/voting.service';
 export class VotingProgressComponent implements OnInit, OnDestroy {
   private voteEntriesSub: Subscription;
   private voteEntriesTotal: number;
-  private totalPlayers: number;
+  private max = 15;
   constructor(private votingService: VotingService) { }
 
   ngOnInit() {
     this.votingService.getEligiblePlayers();
-    this.votingService.eligiblePlayers.pipe(
-      startWith([])
-    ).subscribe(eligiblePlayers => {
-      this.totalPlayers = eligiblePlayers.length;
+    this.votingService.eligiblePlayers.subscribe(eligiblePlayers => {
+      if (eligiblePlayers) {
+        this.max = eligiblePlayers.length;
+      }
     });
     this.votingService.getVoteEntriesSum();
     this.voteEntriesSub = this.votingService.voteEntriesSum.pipe(

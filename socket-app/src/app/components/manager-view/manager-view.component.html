@@ -1,4 +1,4 @@
-<div *ngIf="currentAppState === APP_STATES.WAITING_FOR_MATCH || currentAppState === APP_STATES.VOTING_FINISHED" [@slideInOut]>
+<div *ngIf="currentAppState === APP_STATES.WAITING_FOR_MATCH || currentAppState === APP_STATES.VOTING_FINISHED">
   <div class="list-group">
     <div *ngFor="let player of players">
       <input type="checkbox" name="CheckBoxInputName" id="{{player.name}}" [disabled]="currentAppState === APP_STATES.VOTING_ONGOING"/>
