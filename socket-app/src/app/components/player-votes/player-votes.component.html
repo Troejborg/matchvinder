@@ -1,11 +1,37 @@
-<div>
-  <div style="display: block">
-    <canvas baseChart
-            [datasets]="barChartData"
-            [labels]="barChartLabels"
-            [options]="barChartOptions"
-            [legend]="barChartLegend"
-            [chartType]="barChartType">
-    </canvas>
+<swiper [config]="config">
+  <div class="swiper-wrapper" [ngStyle]="{'height.px': clientHeight-66}">
+    <div class="swiper-slide voting-page" *ngFor="let entry of voteEntries">
+      <div>
+        {{entry.player.name}}
+        {{entry.votes}}
+      </div>
+    </div>
+    <div class="swiper-slide" *ngFor="let entry of voteEntries">
+      <div>
+        {{entry.player.name}}
+        {{entry.votes}}
+      </div>
+    </div>
+    <div class="swiper-slide" *ngFor="let entry of voteEntries">
+      <div>
+        {{entry.player.name}}
+        {{entry.votes}}
+      </div>
+    </div>
+    <div class="swiper-slide" *ngFor="let entry of voteEntries">
+      <div>
+        {{entry.player.name}}
+        {{entry.votes}}
+      </div>
+    </div>
+    <div class="swiper-slide" *ngFor="let entry of voteEntries">
+      <div>
+        {{entry.player.name}}
+        {{entry.votes}}
+      </div>
+    </div>
   </div>
-</div>
+  <div class="swiper-pagination"></div>
+  <div class="swiper-button-next"></div>
+  <div class="swiper-button-prev"></div>
+</swiper>

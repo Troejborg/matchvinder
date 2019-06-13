@@ -3,6 +3,7 @@ import {VotingService} from '../../services/voting.service';
 import {startWith} from 'rxjs/operators';
 import {Subscription} from 'rxjs';
 import {BaseChartDirective} from 'ng2-charts';
+import {VoteEntry} from '../../models/vote-entry';
 
 @Component({
   selector: 'app-player-votes',
@@ -28,14 +29,27 @@ export class PlayerVotesComponent implements OnInit, OnDestroy {
       }]
     },
   };
+  public config: any = {
+    pagination: {
+      el: '.swiper-pagination',
+    },
+    paginationClickable: true,
+    navigation: {
+      nextEl: '.swiper-button-next',
+      prevEl: '.swiper-button-prev',
+    },
+    spaceBetween: 30
+  };
   public barChartLabels = [];
   public barChartType = 'horizontalBar';
   public barChartLegend = false;
+  public voteEntries: any[];
   public barChartData = [
     {data: [], label: 'Stemmer', backgroundColor: 'rgba(0, 123, 255, 0.3)'}
   ];
   private voteSub: Subscription;
   @ViewChild(BaseChartDirective) public chart: BaseChartDirective;
+  private clientHeight: number;
 
   constructor(private votingService: VotingService) { }
 
@@ -44,12 +58,15 @@ export class PlayerVotesComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
+    this.clientHeight = window.innerHeight;
+    console.log(this.clientHeight);
     this.votingService.getVoteResult();
     this.voteSub = this.votingService.voteResultConfirmed.pipe(
       startWith([])
     ).subscribe(voteEntries => {
+      this.voteEntries = voteEntries;
       if (voteEntries && voteEntries.length > 0) {
-        this.updateChartData(voteEntries);
+        // this.updateChartData(voteEntries);
       }
     });
   }

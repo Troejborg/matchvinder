@@ -7,12 +7,12 @@
     <i class="fas fa-tasks" (click)="tryActivateManagerView()" ></i>
   </button>
 </nav>
-<div *ngIf="activeView == 'voting'">
-  <app-waiting-for-match *ngIf="currentAppState === APP_STATES.WAITING_FOR_MATCH"></app-waiting-for-match>
-  <app-voting *ngIf="currentAppState === APP_STATES.VOTING_ONGOING"></app-voting>
-  <app-player-votes *ngIf="currentAppState === APP_STATES.VOTING_FINISHED"></app-player-votes>
+<div *ngIf="activeView == 'voting'" [@slideInOut]>
+  <app-waiting-for-match *ngIf="currentAppState === APP_STATES.WAITING_FOR_MATCH" [@slideInOut]></app-waiting-for-match>
+  <app-voting *ngIf="currentAppState === APP_STATES.VOTING_ONGOING" [@slideInOut]></app-voting>
+  <app-player-votes *ngIf="currentAppState === APP_STATES.VOTING_FINISHED" [@slideInOut]></app-player-votes>
 </div>
-<div *ngIf="activeView == 'manager'">
+<div *ngIf="activeView == 'manager'" [@slideInOut]>
   <app-manager-view></app-manager-view>
 </div>
 <!-- Modal -->

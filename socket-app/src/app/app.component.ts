@@ -4,12 +4,14 @@ import {VotingService} from './services/voting.service';
 import {Subscription} from 'rxjs';
 import {AppState} from './voting-state';
 import * as bootstrap from 'bootstrap';
+import {Animations} from './animated/animations';
 declare var $: any;
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss']
+  styleUrls: ['./app.component.scss'],
+  animations: Animations.slideInOut
 })
 export class AppComponent implements OnInit {
   public activeView: string;

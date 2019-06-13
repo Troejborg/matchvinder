@@ -4,11 +4,13 @@ import {VotingService} from '../../services/voting.service';
 import {startWith} from 'rxjs/operators';
 import {Subscription} from 'rxjs';
 import {AppState} from '../../voting-state';
+import {Animations} from '../../animated/animations';
 
 @Component({
   selector: 'app-manager-view',
   templateUrl: './manager-view.component.html',
-  styleUrls: ['./manager-view.component.scss']
+  styleUrls: ['./manager-view.component.scss'],
+  animations: Animations.slideInOut
 })
 export class ManagerViewComponent implements OnInit, OnDestroy {
   public players = [
@@ -39,9 +41,10 @@ export class ManagerViewComponent implements OnInit, OnDestroy {
   public selectedPlayers: Player[] = [];
   private stateSubscription: Subscription;
   public APP_STATES = AppState;
-  public currentAppState: string;
+  public currentAppState: string = AppState.WAITING_FOR_MATCH;
   private voteEntriesSub: Subscription;
-  private voteEntriesTotal: number;
+  private voteEntriesTotal = 0;
+
 
   constructor(private votingService: VotingService) { }
 
@@ -61,16 +64,12 @@ export class ManagerViewComponent implements OnInit, OnDestroy {
 
   private setupSubscriptions() {
     this.votingService.getApplicationState();
-    this.stateSubscription = this.votingService.applicationState.pipe(
-      startWith(AppState.WAITING_FOR_MATCH)
-    ).subscribe(votingState => {
+    this.stateSubscription = this.votingService.applicationState.subscribe(votingState => {
       this.currentAppState = votingState;
     });
 
     this.votingService.getVoteEntriesSum();
-    this.voteEntriesSub = this.votingService.voteEntriesSum.pipe(
-      startWith(0)
-    ).subscribe(voteEntriesSum => {
+    this.voteEntriesSub = this.votingService.voteEntriesSum.subscribe(voteEntriesSum => {
       this.voteEntriesTotal = voteEntriesSum;
     });
   }

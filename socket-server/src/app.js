@@ -98,7 +98,7 @@ io.on('connection', socket => {
 
   socket.on('publishVote', newVoteEntry => {
     console.log(`Vote received by ${newVoteEntry.voterId} for player ${newVoteEntry.player.name}`);
-    voteEntries = voteEntries.filter( voteEntry => voteEntry.voteEntry !== newVoteEntry.voterId);
+    // voteEntries = voteEntries.filter( voteEntry => voteEntry.voteEntry !== newVoteEntry.voterId);
     voteEntries.push({
       "player": newVoteEntry.player,
       "voteEntry": newVoteEntry.voterId
