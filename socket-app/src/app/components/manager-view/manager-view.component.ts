@@ -15,14 +15,14 @@ export class ManagerViewComponent implements OnInit, OnDestroy {
     new Player('Kidmose', 'Den rigtige Houdini', 1),
     new Player('Tom Larsen', 'Forest Gump', 2),
     new Player('Martin Wolhardt', 'Tordenstøvlen', 4),
-    new Player('Smedegaard', 'Tractoren', 5),
+    new Player('Smedegaard', 'Traktoren', 5),
     new Player('Bregenov', 'Manden med planen', 7),
     new Player('Karma', 'Jon Dahl Thomassen', 9),
     new Player('Kirke', 'Mr. Glass', 10),
     new Player('Michael Søby', 'Mr. \'Jeg tager lige et træk mere\'', 11),
-    new Player('Kenneth A', 'Direktøren', 12),
+    new Player('Kenneth A', 'Stemmeslugeren', 12),
     new Player('Casper Bo', 'Væggen', 13),
-    new Player('Ronnie', 'Slow moving Attacker', 14),
+    new Player('Ronnie', 'Direktøren', 14),
     new Player('Hjerrild', 'Fitzhjerrild', 21),
     new Player('Justinus T.', 'Den hårdtslående færing', 22),
     new Player('Chris Jørgensen', '\'Bamse\'', 25),
@@ -46,6 +46,7 @@ export class ManagerViewComponent implements OnInit, OnDestroy {
   constructor(private votingService: VotingService) { }
 
   ngOnInit() {
+    this.selectedPlayers = [];
     this.setupSubscriptions();
   }
 

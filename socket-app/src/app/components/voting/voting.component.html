@@ -10,5 +10,10 @@
   </div>
 </div>
 <div *ngIf="selectedPlayer">
-  <app-voting-progress [maxPlayers]="players.length" ></app-voting-progress>
+  <app-voting-progress></app-voting-progress>
+  <nav class="navbar fixed-bottom navbar-light bg-light">
+    <span></span>
+    <span></span>
+    <button (click)="selectedPlayer = undefined" class="btn btn-outline-danger">Fortryd</button>
+  </nav>
 </div>
