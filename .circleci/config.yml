@@ -35,9 +35,6 @@ jobs:
             - node_modules
           key: v1-dependencies-{{ checksum "socket-app/package.json" }}
 
-      # run tests!
-      - run: cd socket-app && npm test
-
       # build and push Docker image
       - run: |
           cd socket-app
