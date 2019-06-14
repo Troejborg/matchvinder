@@ -2,81 +2,83 @@
 #
 # Check https://circleci.com/docs/2.0/language-javascript/ for more details
 #
-version: 2
-jobs:
-  client:
-    docker:
-      # specify the version you desire here
-      - image: circleci/node:7.10
+workflows:
+  version: 2
+  build-test-and-approval-deploy:
+    jobs:
+      build:
+        docker:
+          # specify the version you desire here
+          - image: circleci/node:7.10
 
-      # Specify service dependencies here if necessary
-      # CircleCI maintains a library of pre-built images
-      # documented at https://circleci.com/docs/2.0/circleci-images/
-      # - image: circleci/mongo:3.4.4
+          # Specify service dependencies here if necessary
+          # CircleCI maintains a library of pre-built images
+          # documented at https://circleci.com/docs/2.0/circleci-images/
+          # - image: circleci/mongo:3.4.4
 
-    working_directory: ~/socket-app
+        working_directory: ~/socket-app
 
-    steps:
-      - checkout
+        steps:
+          - checkout
 
-      - setup_remote_docker:   # (2)
-          docker_layer_caching: true # (3)
-      # Download and cache dependencies
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "socket-app/package.json" }}
-            # fallback to using the latest cache if no exact match is found
-            - v1-dependencies-
+          - setup_remote_docker:   # (2)
+              docker_layer_caching: true # (3)
+          # Download and cache dependencies
+          - restore_cache:
+              keys:
+                - v1-dependencies-{{ checksum "socket-app/package.json" }}
+                # fallback to using the latest cache if no exact match is found
+                - v1-dependencies-
 
-      - run: cd socket-app && npm install
+          - run: cd socket-app && npm install
 
-      - save_cache:
-          paths:
-            - node_modules
-          key: v1-dependencies-{{ checksum "socket-app/package.json" }}
+          - save_cache:
+              paths:
+                - node_modules
+              key: v1-dependencies-{{ checksum "socket-app/package.json" }}
 
-      # build and push Docker image
-      - run: |
-          cd socket-app
-          TAG=0.1.$CIRCLE_BUILD_NUM
-          docker build -t litemode/oldboys-client:$TAG .
-          docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-          docker push litemode/oldboys-client:$TAG
-server:
-  docker:
-    # specify the version you desire here
-    - image: circleci/node:7.10
+          # build and push Docker image
+          - run: |
+              cd socket-app
+              TAG=0.1.$CIRCLE_BUILD_NUM
+              docker build -t litemode/oldboys-client:$TAG .
+              docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+              docker push litemode/oldboys-client:$TAG
+    build-server:
+      docker:
+        # specify the version you desire here
+        - image: circleci/node:7.10
 
-    # Specify service dependencies here if necessary
-    # CircleCI maintains a library of pre-built images
-    # documented at https://circleci.com/docs/2.0/circleci-images/
-    # - image: circleci/mongo:3.4.4
+        # Specify service dependencies here if necessary
+        # CircleCI maintains a library of pre-built images
+        # documented at https://circleci.com/docs/2.0/circleci-images/
+        # - image: circleci/mongo:3.4.4
 
-  working_directory: ~/socket-server
+      working_directory: ~/socket-server
 
-  steps:
-    - checkout
+      steps:
+        - checkout
 
-    - setup_remote_docker:   # (2)
-        docker_layer_caching: true # (3)
-    # Download and cache dependencies
-    - restore_cache:
-        keys:
-          - v1-dependencies-{{ checksum "socket-server/package.json" }}
-          # fallback to using the latest cache if no exact match is found
-          - v1-dependencies-
+        - setup_remote_docker:   # (2)
+            docker_layer_caching: true # (3)
+        # Download and cache dependencies
+        - restore_cache:
+            keys:
+              - v1-dependencies-{{ checksum "socket-server/package.json" }}
+              # fallback to using the latest cache if no exact match is found
+              - v1-dependencies-
 
-    - run: cd socket-server && npm install
+        - run: cd socket-server && npm install
 
-    - save_cache:
-        paths:
-          - node_modules
-        key: v1-dependencies-{{ checksum "socket-server/package.json" }}
+        - save_cache:
+            paths:
+              - node_modules
+            key: v1-dependencies-{{ checksum "socket-server/package.json" }}
 
-    # build and push Docker image
-    - run: |
-        cd socket-server
-        TAG=0.1.$CIRCLE_BUILD_NUM
-        docker build -t litemode/oldboys-server:$TAG .
-        docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
-        docker push litemode/oldboys-server:$TAG
+        # build and push Docker image
+        - run: |
+            cd socket-server
+            TAG=0.1.$CIRCLE_BUILD_NUM
+            docker build -t litemode/oldboys-server:$TAG .
+            docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
+            docker push litemode/oldboys-server:$TAG
