@@ -4,8 +4,7 @@
 #
 workflows:
   version: 2
-  build-test-and-approval-deploy:
-    jobs:
+  build-n-deploy:
       build:
         docker:
           # specify the version you desire here
@@ -44,7 +43,7 @@ workflows:
               docker build -t litemode/oldboys-client:$TAG .
               docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
               docker push litemode/oldboys-client:$TAG
-    build-server:
+    server:
       docker:
         # specify the version you desire here
         - image: circleci/node:7.10
