@@ -18,6 +18,7 @@ const eventTypeSchema = new mongoose.Schema({
     unique: false
   },
 });
+
 eventTypeSchema.statics.findByEventName= async function (eventName) {
   let eventType = await this.findOne({
     eventName: eventName,
@@ -25,7 +26,6 @@ eventTypeSchema.statics.findByEventName= async function (eventName) {
 
   return eventType;
 };
-
 
 const EventType = mongoose.model('EventType', eventTypeSchema);
 

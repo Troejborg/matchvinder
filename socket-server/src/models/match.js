@@ -8,9 +8,9 @@ const matchSchema = new mongoose.Schema({
     type: Date,
     default: Date.now
   },
-  teamSheet: [Player],
-  events: [MatchEvent],
-  motmVotes: [VoteResult],
+  teamSheet: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Player' }],
+  events: [{ type: mongoose.Schema.Types.ObjectId, ref: 'MatchEvent' }],
+  motmVotes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'VoteResult' }],
   opponent: String,
   goalsFor: Number,
   goalsAgainst: Number

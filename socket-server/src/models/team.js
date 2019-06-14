@@ -3,9 +3,9 @@ const Player = require("./player").default;
 const Match = require("./match").default;
 
 const teamSchema = new mongoose.Schema({
-  players: [Player],
-  matches: [Match],
-  Owners: [Player]
+  players: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Player' }],
+  matches: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Match' }],
+  Owners: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Player' }]
 });
 
 
