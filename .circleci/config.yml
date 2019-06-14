@@ -17,8 +17,8 @@ jobs:
     working_directory: ~/matchvinder
 
     steps:
-      - checkout
 
+      - checkout
       - setup_remote_docker:   # (2)
           docker_layer_caching: true # (3)
       # Download and cache dependencies
@@ -39,9 +39,10 @@ jobs:
       - run: |
           cd socket-app
           TAG=0.1.$CIRCLE_BUILD_NUM
-          docker build -t litemode/oldboys-client:$TAG .
+          docker build -t litemode/oldboys-client:$TAG -t litemode/oldboys-client:latest .
           docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
           docker push litemode/oldboys-client:$TAG
+          docker push litemode/oldboys-client:latest
 
       # Download and cache dependencies
       - restore_cache:
@@ -61,6 +62,7 @@ jobs:
       - run: |
           cd socket-server
           TAG=0.1.$CIRCLE_BUILD_NUM
-          docker build -t litemode/oldboys-server:$TAG .
+          docker build -t litemode/oldboys-server:$TAG -t litemode/oldboys-server:latest .
           docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
           docker push litemode/oldboys-server:$TAG
+          docker push litemode/oldboys-server:latest
