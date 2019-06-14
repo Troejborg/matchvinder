@@ -4,7 +4,7 @@
 #
 version: 2
 jobs:
-  build:
+  client:
     docker:
       # specify the version you desire here
       - image: circleci/node:7.10
@@ -42,7 +42,7 @@ jobs:
           docker build -t litemode/oldboys-client:$TAG .
           docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD
           docker push litemode/oldboys-client:$TAG
-build:
+server:
   docker:
     # specify the version you desire here
     - image: circleci/node:7.10
