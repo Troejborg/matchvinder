@@ -18,12 +18,11 @@ const playerSchema = new mongoose.Schema({
     unique: true
   },
 });
+
 playerSchema.statics.findByShirtNo = async function (shirtNo) {
-  let player = await this.findOne({
+  return await this.findOne({
     shirtNo: shirtNo,
   });
-
-  return player;
 };
 
 
