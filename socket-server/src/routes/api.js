@@ -5,7 +5,7 @@ const router = express.Router();
 
 const { Player } = require('../models/models').default;
 
-mongoose.connect("mongodb://mongo:27017/eif_database_1", { useNewUrlParser: true });
+mongoose.connect("mongodb://localhost:27017/eif_database_1", { useNewUrlParser: true });
 
 
 
