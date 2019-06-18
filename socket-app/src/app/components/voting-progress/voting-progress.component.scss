@@ -25,7 +25,7 @@
   width: 11px;
   height: 11px;
   border-radius: 50%;
-  background: #3678ff;
+  background: #f8f9fa;
   animation-timing-function: cubic-bezier(0, 1, 1, 0);
 }
 .lds-ellipsis div:nth-child(1) {
@@ -73,12 +73,14 @@
   position: absolute;
   margin-top: 80px;
   font-size: 2em;
+  color: #f8f9fa;
 }
 .container {
   margin-top: 100px;
   align-content: center;
   justify-content: center;
   display: flex;
+  background-color: #5b6cab;
 
   .inner-container {
     text-align: center;

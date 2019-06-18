@@ -1,7 +1,7 @@
 <div class="container" *ngIf="selectedPlayer == undefined" [@slideInOut]>
   <div class="card voting-card" *ngFor="let player of players">
     <div class="card-body">
-      <h5 class="card-title"><span style="color: azure; background-color: #0275D8; padding: 3px 8px; margin-right: 6px; border-radius: 4px;">{{player.shirtNo}}</span>{{player.name}}</h5>
+      <h5 class="card-title"><span class="shirt-no">{{player.shirtNo}}</span>{{player.name}}</h5>
       <h6 class="card-subtitle mb-2 text-muted">{{player.title}}</h6>
       <div style="display: flex; justify-content: flex-end">
         <button type="button" class="btn btn-outline-primary" [ngClass]="{ 'active': selectedPlayer && selectedPlayer.name == player.name }" (click)="publishVote(player)">Stem</button>

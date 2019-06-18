@@ -7,7 +7,7 @@
 socket-app/dist/*
 socket-app/node_modules/*
 socket-server/node_modules/*
-
+data/
 
 # dependencies
 /node_modules
