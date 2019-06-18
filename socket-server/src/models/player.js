@@ -17,6 +17,7 @@ const playerSchema = new mongoose.Schema({
     type: Number,
     unique: true
   },
+  team: { type: mongoose.Schema.Types.ObjectId, ref: 'Team' }
 });
 playerSchema.statics.findByShirtNo = async function (shirtNo) {
   let player = await this.findOne({
