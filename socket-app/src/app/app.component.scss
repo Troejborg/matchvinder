@@ -16,13 +16,16 @@
 }
 .menu-icon {
   font-size: 24px;
-  color: #8ec7ff;
+  color: #f8f9fa;
 
   &.active {
-    color: #f8f9fa;
+    -moz-box-shadow:    inset 0 0 3px #000000;
+    -webkit-box-shadow: inset 0 0 3px #000000;
+    box-shadow:         inset 0 0 3px #000000;
+    color: #6193f9;
   }
 }
 .navigation-bar {
-  background-color: #0275D8;
+  background-color:#2e6ca2;
   color: #f8f9fa;
 }
