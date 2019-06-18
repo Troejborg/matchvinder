@@ -1,8 +1,8 @@
-<nav class="navbar navbar-light bg-light sticky-top">
+<nav class="navbar navbar-light navigation-bar sticky-top">
   <button class="menu-icon btn btn-link" style="margin-left: 5px;" [ngClass]="{'active': activeView === 'voting'}">
     <i class="fas fa-vote-yea" (click)="activeView = 'voting'"></i>
   </button>
-  <span class="mat-h2 title">EIF Old Boys</span>
+  <span class="mat-h2 title">Matchvinder</span>
   <button class="menu-icon btn btn-link" [ngClass]="{'active': activeView === 'manager'}" style="margin-right: 5px;">
     <i class="fas fa-tasks" (click)="tryActivateManagerView()" ></i>
   </button>

@@ -13,43 +13,14 @@ swiper{
 }
 .voting-page{
   padding: 5px 40px;
+  text-align: center;
 }
-@import url('https://fonts.googleapis.com/css?family=Overpass+Mono:600');
-*, *::before, *::after {
-  margin: 0;
-  padding: 0;
-  box-sizing: inherit;
-}
-body {
-  display: flex;
-  box-sizing: border-box;
-  background-color: hsl(210, 5%, 12%);
-}
-svg {
-  margin: auto;
-  width: 100vmin;
-}
-g > text {
-  text-anchor: middle;
-  font-size: 400px;
-  font-family: Overpass Mono, monospace;
-  fill: #0275D8;
-  opacity: 0;
-  animation-name: opac;
-  animation-duration: 6s;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
-}
-//g > text:nth-child(7) { animation-delay: 6s; }
-//g > text:nth-child(8) { animation-delay: 7s; }
-//g > text:nth-child(9) { animation-delay: 8s; }
-//g > text:nth-child(10) { animation-delay: 9s; }
-//g > text:nth-child(11) { animation-delay: 10s; }
 
-@keyframes opac {
-  0% { opacity: 0; }
-  7.5% { opacity: 1; }
-  10% { opacity: 1; }
-  15% { opacity: 0; }
-  100% { opacity: 0; }
+.placement-header{
+  margin-top: 50px;
+  display: inline-block;
+  padding: 0 30px 7px;
+  background-color: #0175d8;
+  color: #f8f9fa;
+  border-radius: 5px;
 }
