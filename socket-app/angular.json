@@ -27,7 +27,7 @@
               "src/assets"
             ],
             "styles": [
-              "src/assets/custom.scss",
+              "node_modules/bootstrap/dist/css/bootstrap.css",
               "node_modules/swiper/dist/css/swiper.css"
             ],
             "scripts": [

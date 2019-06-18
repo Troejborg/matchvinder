@@ -1,5 +1,5 @@
 .voting-button{
-  background-color: #5b6cab;
+  background-color: #0275D8;
   color: azure;
   border-radius: 0;
   &.active {
@@ -12,15 +12,16 @@
 }
 
 .voting-card {
-  margin: 0 16px 16px;
-  -webkit-box-shadow: 3px 3px 5px -1px rgb(27, 27, 55);
-  -moz-box-shadow: 3px 3px 5px -1px rgb(27, 27, 55);
-  box-shadow: 3px 3px 5px -1px rgb(27, 27, 55);
+  margin-bottom: 5px;
+  -webkit-box-shadow: 3px 3px 5px -1px rgba(65,86,148,1);
+  -moz-box-shadow: 3px 3px 5px -1px rgba(65,86,148,1);
+  box-shadow: 3px 3px 5px -1px rgba(65,86,148,1);
 }
-.shirt-no {
+
+.shirt-label {
   color: azure;
-  background-color: #5b6cab;
-  padding: 3px 8px;
+  background-color: #0275D8;
+  padding: 4px;
   margin-right: 6px;
   border-radius: 4px;
 }
