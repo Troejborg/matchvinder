@@ -21,10 +21,6 @@ app.use(function(req, res, next) {
 // Set our api routes
 app.use('/', api);
 
-
-const { connectDb }= require('./models/initdb');
-const models = require('./models/models').default;
-
 let voteEntries = [];
 const APP_STATE = {
   'WAITING_FOR_MATCH': 'waitingForNextMatch',
@@ -144,11 +140,6 @@ io.on('connection', socket => {
   console.log(`Socket ${socket.id} has connected`);
 });
 
-connectDb().then(async () => {
-
-  // createPlayers();
-
-  http.listen(4444, () => {
+http.listen(4444, () => {
     console.log('Listening on port 4444');
   });
-});
