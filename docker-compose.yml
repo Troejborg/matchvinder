@@ -1,0 +1,21 @@
+version: '2' # specify docker-compose version
+
+# Define the services/containers to be run
+services:
+  angular: # name of the first service
+    image: litemode/oldboys-client
+    ports:
+      - "80:2222" # specify port forewarding
+
+  express: #name of the second service
+    image: litemode/oldboys-server
+    ports:
+      - "4444:4444" #specify ports forewarding
+    links:
+      - mongo
+  mongo: # name of the third service
+    image: mongo # specify image to build container from
+    ports:
+      - "27017:27017" # specify port forewarding
+    volumes:
+      - './data:/data/db'
