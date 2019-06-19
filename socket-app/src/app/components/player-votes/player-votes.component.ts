@@ -30,6 +30,7 @@ export class PlayerVotesComponent implements OnInit, OnDestroy {
     },
   };
   public config: any = {
+
     pagination: {
       el: '.swiper-pagination',
     },
@@ -37,6 +38,10 @@ export class PlayerVotesComponent implements OnInit, OnDestroy {
     navigation: {
       nextEl: '.swiper-button-next',
       prevEl: '.swiper-button-prev',
+    },
+    autoplay: {
+      delay: 5000,
+      stopOnLastSlide: true
     },
     spaceBetween: 30
   };
@@ -69,6 +74,7 @@ export class PlayerVotesComponent implements OnInit, OnDestroy {
           .sort((a, b) => (a.votes > b.votes) ? 1 : -1)
           .forEach((entry, index) => entry.placement = voteEntries.length - index);
         this.voteEntries = voteEntries;
+        this.updateChartData(voteEntries.slice().reverse());
       }
     });
   }

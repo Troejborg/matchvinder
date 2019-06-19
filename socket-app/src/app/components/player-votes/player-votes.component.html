@@ -6,6 +6,18 @@
 
       <div><p><em>{{entry.votes}} {{entry.votes === 1 ? "stemme" : "stemmer"}}</em></p></div>
     </div>
+    <div class="swiper-slide voting-page">
+      <h1 class="display-text placement-header">Resultat</h1>
+      <div class="canvas-container">
+        <canvas baseChart
+                [datasets]="barChartData"
+                [labels]="barChartLabels"
+                [options]="barChartOptions"
+                [legend]="barChartLegend"
+                [chartType]="barChartType">
+        </canvas>
+      </div>
+    </div>
   </div>
   <div class="swiper-pagination"></div>
   <div class="swiper-button-next"></div>
