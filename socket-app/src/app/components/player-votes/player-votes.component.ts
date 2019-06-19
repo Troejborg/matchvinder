@@ -64,7 +64,6 @@ export class PlayerVotesComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.clientHeight = window.innerHeight;
-    console.log(this.clientHeight);
     this.votingService.getVoteResult();
     this.voteSub = this.votingService.voteResultConfirmed.pipe(
       startWith([])

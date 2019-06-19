@@ -26,7 +26,6 @@ export class AppComponent implements OnInit {
     this.isAuthenticated = false;
     this.activeView = 'voting';
     this.clientHeight = window.innerHeight;
-    console.log(this.clientHeight);
   }
 
 
@@ -53,7 +52,6 @@ export class AppComponent implements OnInit {
       startWith(false)
     ).subscribe(isPassOK => {
       this.isAuthenticated = isPassOK;
-      console.log('is authed?', isPassOK);
       if (isPassOK) {
         $('#authModal').modal('hide');
         this.activeView = 'manager';

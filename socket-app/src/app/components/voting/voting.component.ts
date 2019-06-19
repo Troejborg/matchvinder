@@ -24,7 +24,6 @@ export class VotingComponent implements OnInit, OnDestroy {
     this.playerSub = this.votingService.eligiblePlayers.pipe(
       startWith([])
     ).subscribe(players => {
-      console.log('players received', players);
       this.players = players;
     });
   }
