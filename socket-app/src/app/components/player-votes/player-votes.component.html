@@ -1,8 +1,8 @@
 <swiper [config]="config">
   <div class="swiper-wrapper" [ngStyle]="{'height.px': clientHeight-66}">
     <div class="swiper-slide voting-page" *ngFor="let entry of voteEntries">
-      <h1 class="display-3 placement-header">{{entry.placement}}. Plads</h1>
-      <div><h1 class="display-4">{{entry.player.name}}</h1></div>
+      <h1 class="display-text placement-header">{{entry.placement}}. Plads</h1>
+      <div><h1 class="display-text">{{entry.player.name}}</h1></div>
 
       <div><p><em>{{entry.votes}} {{entry.votes === 1 ? "stemme" : "stemmer"}}</em></p></div>
     </div>
