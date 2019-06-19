@@ -20,7 +20,7 @@ RUN npm install -g @angular/cli@7.3.9
 COPY . /app
 
 # generate build
-RUN ng build --env=prod --output-path=dist
+RUN ng build --configuration=production --output-path=dist
 
 ############
 ### prod ###
