@@ -54,7 +54,7 @@ export class PlayerVotesComponent implements OnInit, OnDestroy {
   ];
   private voteSub: Subscription;
   @ViewChild(BaseChartDirective) public chart: BaseChartDirective;
-  private clientHeight: number;
+  public clientHeight: number;
 
   constructor(private votingService: VotingService) { }
 

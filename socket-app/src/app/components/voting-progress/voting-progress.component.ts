@@ -10,8 +10,8 @@ import {VotingService} from '../../services/voting.service';
 })
 export class VotingProgressComponent implements OnInit, OnDestroy {
   private voteEntriesSub: Subscription;
-  private voteEntriesTotal: number;
-  private max = 15;
+  public voteEntriesTotal: number;
+  public max = 15;
   constructor(private votingService: VotingService) { }
 
   ngOnInit() {

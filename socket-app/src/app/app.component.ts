@@ -20,7 +20,7 @@ export class AppComponent implements OnInit {
   public currentAppState: string;
   private stateSubscription: Subscription;
   private isAuthenticated: boolean;
-  private inputPassword: any;
+  public inputPassword: any;
 
   constructor(private votingService: VotingService) {
     this.isAuthenticated = false;
