@@ -7,24 +7,12 @@ const { Player } = require('../models/models').default;
 
 mongoose.connect("mongodb://localhost:27017/eif_database_1", { useNewUrlParser: true });
 
+
+
+
 /_ GET api listing. _/
 router.get('/', (req, res) => {
     res.send('api works');
-});
-
-let maxVotes = 0;
-/_ GET the number of votes allowed _/
-router.get('/maxVotes', (req, res) => {
-    console.log("Sending ", maxVotes);
-    res.status(200).json(maxVotes);
-});
-
-/_POST the maximum votes allowed_/
-router.post('/maxVotes', (req, res) => {
-    maxVotes = req.body.maxVotes;
-    res.status(201).json({
-        message: `maxVotes succesfuly set to ${maxVotes}`
-    });
 });
 
 /_ GET all players. _/

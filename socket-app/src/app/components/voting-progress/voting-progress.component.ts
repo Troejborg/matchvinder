@@ -2,7 +2,6 @@ import {Component, OnDestroy, OnInit} from '@angular/core';
 import {Subscription} from 'rxjs';
 import {startWith} from 'rxjs/operators';
 import {VotingService} from '../../services/voting.service';
-import {HttpClient} from '@angular/common/http';
 
 @Component({
   selector: 'app-voting-progress',
@@ -12,15 +11,16 @@ import {HttpClient} from '@angular/common/http';
 export class VotingProgressComponent implements OnInit, OnDestroy {
   private voteEntriesSub: Subscription;
   public voteEntriesTotal: number;
-  public maxVotes = 15;
+  public max = 15;
   constructor(private votingService: VotingService) { }
 
-    ngOnInit() {
-      this.initVotingProgress();
-    }
-
-  private async initVotingProgress() {
-    this.maxVotes = await this.votingService.getMaxVotes();
+  ngOnInit() {
+    this.votingService.getEligiblePlayers();
+    this.votingService.eligiblePlayers.subscribe(eligiblePlayers => {
+      if (eligiblePlayers) {
+        this.max = eligiblePlayers.length;
+      }
+    });
     this.votingService.getVoteEntriesSum();
     this.voteEntriesSub = this.votingService.voteEntriesSum.pipe(
       startWith(0)
@@ -31,13 +31,5 @@ export class VotingProgressComponent implements OnInit, OnDestroy {
 
   ngOnDestroy(): void {
     this.voteEntriesSub.unsubscribe();
-  }
-
-  resetVote() {
-    this.votingService.resetVote();
-  }
-
-  stopVoting() {
-    this.votingService.finishVote();
   }
 }

@@ -6,22 +6,19 @@ const bodyParser = require('body-parser');
 // Get our API routes
 const api = require('./routes/api');
 const models = require('./models/models').default;
-const express = require('express');
+
+// Parsers for POST data
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: false }));
 
 // Cross Origin middleware
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*")
   res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
   next()
-});
+})
 
-// Parsers for POST data
-app.use(bodyParser.json());
-app.use(bodyParser.urlencoded({ extended: false }));
-
-const ROOT_PASSWORD = process.env.password || 'supersecret';
-console.log(ROOT_PASSWORD);
-
+// Set our api routes
 app.use('/', api);
 
 let voteEntries = [];
@@ -96,9 +93,8 @@ io.on('connection', socket => {
     io.emit(Events.ELIGIBLE_PLAYERS_UPDATED, this.players);
   });
 
-  socket.on('startVoting', (eligiblePlayers, maxVotes) => {
+  socket.on('startVoting', eligiblePlayers => {
     this.players = eligiblePlayers;
-    this.maxVotes = maxVotes;
     voteEntries = [];
     playerVotes = [];
     setAndEmitNewApplicationState(APP_STATE.VOTING_ONGOING)
@@ -134,7 +130,7 @@ io.on('connection', socket => {
   socket.on('authenticate', passwordAttempt => {
     console.log('Logging on...');
     let isPassOK = false;
-    if(passwordAttempt === ROOT_PASSWORD) {
+    if(passwordAttempt === 'supersecret') {
       isPassOK = true;
       console.log(`Attempted password ${passwordAttempt} was found to be: ${isPassOK ? 'OK' : 'not OK'}`);}
 
