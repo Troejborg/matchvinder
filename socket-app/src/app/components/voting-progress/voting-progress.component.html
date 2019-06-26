@@ -1,12 +1,12 @@
 <div class="container">
   <div class="counter-text">
-    {{voteEntriesTotal}} / {{max}}
+    {{voteEntriesTotal}} / {{maxVotes}}
 <!--    <div class="lds-ellipsis"><div></div><div></div><div></div><div></div></div>-->
   </div>
   <div class="inner-container">
     <round-progress
       [current]="voteEntriesTotal"
-      [max]="max"
+      [max]="maxVotes"
       [color]="'#2e6ca2'"
       [background]="'#eaeaea'"
       [radius]="100"

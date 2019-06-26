@@ -1,19 +1,14 @@
 <nav class="navbar navbar-light navigation-bar sticky-top">
   <button class="menu-icon btn btn-link" style="margin-left: 5px;" [ngClass]="{'active': activeView === 'voting'}">
-    <i class="fas fa-vote-yea" (click)="activeView = 'voting'"></i>
+    <i class="fas fa-vote-yea" (click)="setActiveView('voting')"></i>
   </button>
   <span class="mat-h2 title">Matchvinder</span>
-  <button class="menu-icon btn btn-link" [ngClass]="{'active': activeView === 'manager'}" style="margin-right: 5px;">
+  <button class="menu-icon btn btn-link" [ngClass]="{'active': activeView === 'manager-view'}" style="margin-right: 5px;">
     <i class="fas fa-tasks" (click)="tryActivateManagerView()" ></i>
   </button>
 </nav>
-<div *ngIf="activeView == 'voting'">
-  <app-waiting-for-match *ngIf="currentAppState === APP_STATES.WAITING_FOR_MATCH" [@slideInOut]></app-waiting-for-match>
-  <app-voting *ngIf="currentAppState === APP_STATES.VOTING_ONGOING" [@slideInOut]></app-voting>
-  <app-player-votes *ngIf="currentAppState === APP_STATES.VOTING_FINISHED" [@slideInOut]></app-player-votes>
-</div>
-<div *ngIf="activeView == 'manager'" [@slideInOut]>
-  <app-manager-view></app-manager-view>
+<div [@routeAnimations]="prepareRoute(outlet)">
+  <router-outlet #outlet="outlet"></router-outlet>
 </div>
 <!-- Modal -->
 <div class="modal fade" id="authModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

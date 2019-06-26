@@ -4,6 +4,7 @@ import { Socket } from 'ngx-socket-io';
 
 import {VoteEntry} from '../models/vote-entry';
 import {Player} from '../models/player';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +16,9 @@ export class VotingService {
   authAttempt = this.socket.fromEvent<boolean>('passwordAttemptResponse');
   voteEntriesSum = this.socket.fromEvent<number>('onVoteEntriesSumChanged');
   voteResultConfirmed = this.socket.fromEvent<any[]>('onResultConfirmed');
+  private SERVER_URL = 'http://localhost:4444';
 
-  constructor(private socket: Socket) { }
+  constructor(private socket: Socket, private httpClient: HttpClient) { }
 
   getEligiblePlayers() {
     this.socket.emit('getPlayers');
@@ -56,5 +58,14 @@ export class VotingService {
 
   resetVote() {
     this.socket.emit('resetEverything');
+  }
+
+  setMaxVotes(maxVotes: number) {
+    this.httpClient.post<number>(`${this.SERVER_URL}/maxVotes`, {maxVotes})
+      .subscribe(() => console.info('maxVotes successfully POSTed'));
+  }
+
+  getMaxVotes(): Promise<number> {
+    return this.httpClient.get<number>(`${this.SERVER_URL}/maxVotes`).toPromise();
   }
 }

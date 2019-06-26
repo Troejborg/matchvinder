@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {startWith} from 'rxjs/operators';
 import {VotingService} from './services/voting.service';
 import {Subscription} from 'rxjs';
 import {AppState} from './voting-state';
-import * as bootstrap from 'bootstrap';
 import {Animations} from './animated/animations';
+import {Router, RouterOutlet} from '@angular/router';
+
 declare var $: any;
 
 @Component({
@@ -16,13 +17,12 @@ declare var $: any;
 export class AppComponent implements OnInit {
   public activeView: string;
   public clientHeight: number;
-  public APP_STATES = AppState;
-  public currentAppState: string;
   private stateSubscription: Subscription;
   private isAuthenticated: boolean;
   public inputPassword: any;
+  private currentAppState: string | AppState;
 
-  constructor(private votingService: VotingService) {
+  constructor(private votingService: VotingService, private router: Router) {
     this.isAuthenticated = false;
     this.activeView = 'voting';
     this.clientHeight = window.innerHeight;
@@ -34,17 +34,24 @@ export class AppComponent implements OnInit {
     this.stateSubscription = this.votingService.applicationState.pipe(
       startWith(AppState.WAITING_FOR_MATCH)
     ).subscribe(applicationState => {
-      this.currentAppState = applicationState;
+      if (applicationState !== this.currentAppState) {
+        this.currentAppState = applicationState;
+        if(activeView !== 'manager-view') {
+          switch (applicationState) {
+            case AppState.VOTING_FINISHED:
+              this.router.navigate(['player-votes']);
+              break;
+            case AppState.VOTING_ONGOING:
+              this.router.navigate(['voting']);
+              break;
+            case AppState.WAITING_FOR_MATCH:
+              this.router.navigate(['waiting-for-match']);
+          }
+        }
+      }
     });
   }
 
-  tryActivateManagerView() {
-    if (this.isAuthenticated) {
-      this.activeView = 'manager';
-    } else {
-      $('#authModal').modal();
-    }
-  }
 
   tryAuthenticate() {
     this.votingService.tryAuth(this.inputPassword);
@@ -54,9 +61,35 @@ export class AppComponent implements OnInit {
       this.isAuthenticated = isPassOK;
       if (isPassOK) {
         $('#authModal').modal('hide');
-        this.activeView = 'manager';
+        this.activeView = 'manager-view';
+        this.router.navigate([this.activeView]);
 
       }
     });
+  }
+
+  tryActivateManagerView() {
+    if (this.isAuthenticated) {
+      this.activeView = 'manager-view';
+      this.router.navigate(['manager-view']);
+    } else {
+      $('#authModal').modal();
+    }
+  }
+  setActiveView(viewName: string) {
+    this.activeView = viewName;
+    if (viewName === 'manager-view') {
+      if (this.isAuthenticated) {
+        this.activeView = viewName;
+        this.router.navigate(['manager-view']);
+      } else {
+        $('#authModal').modal();
+      }
+    }
+    this.router.navigate([viewName]);
+  }
+
+  prepareRoute(outlet: RouterOutlet) {
+    return outlet && outlet.activatedRouteData;
   }
 }
