@@ -28,6 +28,7 @@ export class ManagerViewComponent implements OnInit, OnDestroy {
     new Player('Hjerrild', 'Fitzhjerrild', 21),
     new Player('Justinus T.', 'Den hårdtslående færing', 22),
     new Player('Chris Jørgensen', '\'Bamse\'', 25),
+    new Player('Søren Danscher', 'Har du set mig?', 30),
     new Player('Thomas Andersen', 'T fra V', 32),
     new Player('Jonas Madsen', 'Halvskadet Fysioterapeut', 33),
     new Player('Søren Langhoff', 'New kid on the block #1', 44),
