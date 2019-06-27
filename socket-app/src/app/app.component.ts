@@ -5,6 +5,7 @@ import {Subscription} from 'rxjs';
 import {AppState} from './voting-state';
 import {Animations} from './animated/animations';
 import {Router, RouterOutlet} from '@angular/router';
+import {ROUTES} from './routes';
 
 declare var $: any;
 
@@ -36,22 +37,27 @@ export class AppComponent implements OnInit {
     ).subscribe(applicationState => {
       if (applicationState !== this.currentAppState) {
         this.currentAppState = applicationState;
-        if(activeView !== 'manager-view') {
-          switch (applicationState) {
-            case AppState.VOTING_FINISHED:
-              this.router.navigate(['player-votes']);
-              break;
-            case AppState.VOTING_ONGOING:
-              this.router.navigate(['voting']);
-              break;
-            case AppState.WAITING_FOR_MATCH:
-              this.router.navigate(['waiting-for-match']);
-          }
+        if (this.activeView !== 'manager-view') {
+          this.navigateOnStateChange(applicationState);
         }
       }
     });
   }
 
+
+  private navigateOnStateChange(applicationState) {
+    switch (applicationState) {
+      case AppState.VOTING_FINISHED:
+        this.router.navigate([ROUTES.VOTE_RESULT]);
+        break;
+      case AppState.VOTING_ONGOING:
+        this.router.navigate([ROUTES.VOTING]);
+        break;
+      case AppState.WAITING_FOR_MATCH:
+        this.router.navigate([ROUTES.WAITING]);
+        break;
+    }
+  }
 
   tryAuthenticate() {
     this.votingService.tryAuth(this.inputPassword);
@@ -71,7 +77,7 @@ export class AppComponent implements OnInit {
   tryActivateManagerView() {
     if (this.isAuthenticated) {
       this.activeView = 'manager-view';
-      this.router.navigate(['manager-view']);
+      this.router.navigate([ROUTES.MANAGER]);
     } else {
       $('#authModal').modal();
     }
@@ -81,7 +87,7 @@ export class AppComponent implements OnInit {
     if (viewName === 'manager-view') {
       if (this.isAuthenticated) {
         this.activeView = viewName;
-        this.router.navigate(['manager-view']);
+        this.router.navigate([ROUTES.MANAGER]);
       } else {
         $('#authModal').modal();
       }

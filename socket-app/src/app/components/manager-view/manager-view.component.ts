@@ -1,9 +1,10 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import {Player} from '../../models/player';
 import {VotingService} from '../../services/voting.service';
 import {Subscription} from 'rxjs';
 import {AppState} from '../../voting-state';
 import {Animations} from '../../animated/animations';
+import {Router} from '@angular/router';
+import {ROUTES} from '../../routes';
 
 @Component({
   selector: 'app-manager-view',
@@ -19,7 +20,7 @@ export class ManagerViewComponent implements OnInit, OnDestroy {
   private voteEntriesTotal = 0;
 
 
-  constructor(private votingService: VotingService) { }
+  constructor(private votingService: VotingService, private router: Router) { }
 
   ngOnInit() {
     this.setupSubscriptions();
@@ -52,5 +53,9 @@ export class ManagerViewComponent implements OnInit, OnDestroy {
 
   resetVote() {
     this.votingService.resetVote();
+  }
+
+  newMatch() {
+    this.router.navigate([ROUTES.ROSTER]);
   }
 }

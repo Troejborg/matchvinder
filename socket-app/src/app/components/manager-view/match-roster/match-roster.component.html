@@ -1,6 +1,6 @@
 <div>
   <div class="list-group">
-    <div *ngFor="let player of players">
+    <div *ngFor="let player of teamRoster">
       <input type="checkbox" name="CheckBoxInputName" id="{{player.name}}" [disabled]="currentAppState === APP_STATES.VOTING_ONGOING"/>
       <label class="list-group-item" for="{{player.name}}"
              (click)="selectPlayer(player)"

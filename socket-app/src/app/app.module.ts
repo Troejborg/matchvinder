@@ -17,19 +17,19 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {HttpClientModule} from '@angular/common/http';
 import {RouterModule, Routes} from '@angular/router';
 import { MatchRosterComponent } from './components/manager-view/match-roster/match-roster.component';
+import {ROUTES} from './routes';
 
 
 // const config: SocketIoConfig = { url: 'http://134.209.93.63:4444', options: {} };
 const config: SocketIoConfig = { url: 'http://localhost:4444', options: {} };
 
 const appRoutes: Routes = [
-  { path: 'manager-view', component: ManagerViewComponent},
-  { path: 'voting-progress', component: VotingProgressComponent},
-  { path: 'waiting-for-match', component: WaitingForMatchComponent},
-  { path: 'player-votes', component: PlayerVotesComponent},
-  { path: 'waiting-for-match', component: WaitingForMatchComponent},
-  { path: 'match-roster', component: MatchRosterComponent},
-  { path: 'voting', component: VotingComponent}
+  { path: ROUTES.MANAGER, component: ManagerViewComponent},
+  { path: ROUTES.VOTING_PROGRESS, component: VotingProgressComponent},
+  { path: ROUTES.WAITING, component: WaitingForMatchComponent},
+  { path: ROUTES.VOTE_RESULT, component: PlayerVotesComponent},
+  { path: ROUTES.ROSTER, component: MatchRosterComponent},
+  { path: ROUTES.VOTING, component: VotingComponent}
 ];
 
 @NgModule({
