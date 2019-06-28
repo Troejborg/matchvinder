@@ -19,6 +19,7 @@ import {RouterModule, Routes} from '@angular/router';
 import { MatchRosterComponent } from './components/manager-view/match-roster/match-roster.component';
 import {ROUTES} from './routes';
 import { TeamRosterComponent } from './components/manager-view/team/team-roster/team-roster.component';
+import {EventTypesComponent} from './components/manager-view/team/event-types/event-types.component';
 
 
 // const config: SocketIoConfig = { url: 'http://134.209.93.63:4444', options: {} };
@@ -31,7 +32,8 @@ const appRoutes: Routes = [
   { path: ROUTES.VOTE_RESULT, component: PlayerVotesComponent},
   { path: ROUTES.ROSTER, component: MatchRosterComponent},
   { path: ROUTES.VOTING, component: VotingComponent},
-  { path: ROUTES.TEAM_ROSTER, component: TeamRosterComponent}
+  { path: ROUTES.TEAM_ROSTER, component: TeamRosterComponent},
+  { path: ROUTES.EVENT_TYPES, component: EventTypesComponent}
 ];
 
 @NgModule({
@@ -43,7 +45,8 @@ const appRoutes: Routes = [
     WaitingForMatchComponent,
     VotingProgressComponent,
     MatchRosterComponent,
-    TeamRosterComponent
+    TeamRosterComponent,
+    EventTypesComponent
   ],
   imports: [
     RouterModule.forRoot(

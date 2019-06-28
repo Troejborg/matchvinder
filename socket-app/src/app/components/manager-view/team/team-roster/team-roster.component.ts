@@ -36,11 +36,15 @@ export class TeamRosterComponent implements OnInit {
     $('#editPlayerModal').modal();
   }
 
-  createOrUpdate() {
-    this.teamService.createOrUpdatePlayer(this.selectedPlayer);
+  async createOrUpdate() {
+    await this.teamService.createOrUpdatePlayer(this.selectedPlayer);
+    this.teamRoster = await this.teamService.getFullTeamRoster();
+    $('#editPlayerModal').modal('hide');
   }
 
-  deletePlayer() {
-    this.teamService.deletePlayer(this.selectedPlayer).subscribe();
+  async deletePlayer() {
+    await this.teamService.deletePlayer(this.selectedPlayer);
+    this.teamRoster = await this.teamService.getFullTeamRoster();
+    $('#editPlayerModal').modal('hide');
   }
 }

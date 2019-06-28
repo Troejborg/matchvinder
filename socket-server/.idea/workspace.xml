@@ -2,11 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a07993b7-a79d-4f98-b997-e56cce5cf477" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../socket-app/src/app/app.module.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../socket-app/src/app/app.module.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../socket-app/src/app/components/manager-view/manager-view.component.html" beforeDir="false" afterPath="$PROJECT_DIR$/../socket-app/src/app/components/manager-view/manager-view.component.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../socket-app/src/app/components/manager-view/manager-view.component.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../socket-app/src/app/components/manager-view/manager-view.component.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../socket-app/src/app/routes.ts" beforeDir="false" afterPath="$PROJECT_DIR$/../socket-app/src/app/routes.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/routes/api.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/routes/api.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -44,8 +39,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/routes/api.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="275">
-              <caret line="68" column="5" lean-forward="true" selection-start-line="68" selection-start-column="5" selection-end-line="68" selection-end-column="5" />
+            <state relative-caret-position="320">
+              <caret line="71" column="5" lean-forward="true" selection-start-line="71" selection-start-column="5" selection-end-line="71" selection-end-column="5" />
             </state>
           </provider>
         </entry>
@@ -198,12 +193,12 @@
       <workItem from="1560504257291" duration="2557000" />
       <workItem from="1560508667545" duration="1266000" />
       <workItem from="1561640620715" duration="178000" />
-      <workItem from="1561640829763" duration="6943000" />
+      <workItem from="1561640829763" duration="7150000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="17746000" />
+    <option name="totallyTimeSpent" value="17953000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="23" width="1680" height="975" extended-state="6" />
@@ -346,8 +341,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/routes/api.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="275">
-          <caret line="68" column="5" lean-forward="true" selection-start-line="68" selection-start-column="5" selection-end-line="68" selection-end-column="5" />
+        <state relative-caret-position="320">
+          <caret line="71" column="5" lean-forward="true" selection-start-line="71" selection-start-column="5" selection-end-line="71" selection-end-column="5" />
         </state>
       </provider>
     </entry>

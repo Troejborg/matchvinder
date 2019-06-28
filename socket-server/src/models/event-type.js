@@ -12,11 +12,7 @@ const eventTypeSchema = new mongoose.Schema({
   pointValue: {
     type: Number,
     unique: false
-  },
-  penaltyValue: {
-    type: Number,
-    unique: false
-  },
+  }
 });
 
 eventTypeSchema.statics.findByEventName= async function (eventName) {

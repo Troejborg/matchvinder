@@ -68,7 +68,7 @@ router.get('/players', (req, res) => {
   Player.find({}, (err, users) => {
     if (err) res.status(500).send(error);
 
-    res.status(200).json(users);
+    res.status(200).json(users.sort((a,b) => a.shirtNo > b.shirtNo ? 1 : -1));
   });
 });
 router.route('/players/:id')
@@ -80,7 +80,7 @@ router.route('/players/:id')
       });
     })
     .delete((req, res) => {
-      Player.remove({
+      Player.deleteOne({
         "_id": req.params.id
       }, function(err, player) {
         if (err)
