@@ -58,4 +58,8 @@ export class ManagerViewComponent implements OnInit, OnDestroy {
   newMatch() {
     this.router.navigate([ROUTES.ROSTER]);
   }
+
+  navigateTo(route: string) {
+    this.router.navigate([route]);
+  }
 }

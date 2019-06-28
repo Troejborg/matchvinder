@@ -4,5 +4,6 @@ export enum ROUTES {
   WAITING = 'waiting-for-match',
   VOTE_RESULT = 'player-votes',
   ROSTER = 'match-roster',
+  TEAM_ROSTER = 'team-roster',
   VOTING = 'voting'
 }
