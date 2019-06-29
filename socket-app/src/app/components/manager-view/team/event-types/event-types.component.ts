@@ -9,8 +9,7 @@ declare var $: any;
 })
 export class EventTypesComponent implements OnInit {
   public eventTypes;
-  public selectedType: any;
-  public isPenalty = false;
+  public selectedType: any = {};
 
   constructor(private teamService: TeamsService) { }
 
@@ -24,7 +23,7 @@ export class EventTypesComponent implements OnInit {
       console.log(`Lets edit event type ${eventType.eventName}`);
 
     } else {
-      this.selectedType = {};
+      this.selectedType = {'pointValue': 0};
       console.log('Lets create a new eventType!');
     }
     $('#editEventTypeModal').modal();
@@ -36,9 +35,13 @@ export class EventTypesComponent implements OnInit {
     $('#editEventTypeModal').modal('hide');
   }
 
-  async deletePlayer() {
+  async deleteEventType() {
     await this.teamService.deleteEventType(this.selectedType);
     this.eventTypes = await this.teamService.getTeamEventTypes();
     $('#editEventTypeModal').modal('hide');
+  }
+
+  setIsPenalty(isPenalty: boolean) {
+    this.selectedType.pointValue = isPenalty ? Math.abs(this.selectedType.pointValue) * -1 : Math.abs(this.selectedType.pointValue);
   }
 }

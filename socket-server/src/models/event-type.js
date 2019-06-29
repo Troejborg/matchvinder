@@ -5,14 +5,11 @@ const eventTypeSchema = new mongoose.Schema({
     type: String,
     unique: true
   },
-  displayName: {
-    type: String,
-    unique: false
-  },
   pointValue: {
     type: Number,
     unique: false
-  }
+  },
+  team: { type: mongoose.Schema.Types.ObjectId, ref: 'Team' }
 });
 
 eventTypeSchema.statics.findByEventName= async function (eventName) {

@@ -10,7 +10,7 @@ export class TeamsService {
   constructor(private httpClient: HttpClient) {}
 
   private playerEndpoint = '/players/';
-  private eventTypeEndpoint = '/eventtypes';
+  private eventTypeEndpoint = '/eventtypes/';
 
 
   private getAllEntities(endpoint: string) {
