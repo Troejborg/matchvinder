@@ -82,6 +82,7 @@ export class AppComponent implements OnInit {
       $('#authModal').modal();
     }
   }
+
   setActiveView(viewName: string) {
     this.activeView = viewName;
     if (viewName === 'manager-view') {

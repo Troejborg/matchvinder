@@ -1,4 +1,5 @@
 export enum ROUTES {
+  MATCHES_PLAYED = 'matches-played',
   EVENT_TYPES = 'event-types',
   MANAGER = 'manager-view',
   VOTING_PROGRESS = 'voting-progress',

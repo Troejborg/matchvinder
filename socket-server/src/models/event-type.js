@@ -9,6 +9,7 @@ const eventTypeSchema = new mongoose.Schema({
     type: Number,
     unique: false
   },
+  category: String,
   team: { type: mongoose.Schema.Types.ObjectId, ref: 'Team' }
 });
 

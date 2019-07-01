@@ -1,22 +1,20 @@
 const mongoose = require('mongoose');
-const Player = require("./player").default;
-const MatchEvent = require('./match-event').default;
-const VoteResult = require("./vote-result").default;
 
 const matchSchema = new mongoose.Schema({
+  homeTeam:  [{ type: mongoose.Schema.Types.ObjectId, ref: 'Team' }],
   date: {
     type: Date,
     default: Date.now
   },
   teamSheet: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Player' }],
   events: [{ type: mongoose.Schema.Types.ObjectId, ref: 'MatchEvent' }],
-  motmVotes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'VoteResult' }],
+  matchWinnerVotes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'VoteResult' }],
+  state: String,
   opponent: String,
   goalsFor: Number,
   goalsAgainst: Number
+
 });
-
-
 const Match = mongoose.model('Match', matchSchema);
 
 exports.default = Match;
