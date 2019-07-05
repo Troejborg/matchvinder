@@ -1,4 +1,5 @@
 export enum ROUTES {
+  LOGIN = 'login-page',
   MATCHES_PLAYED = 'matches-played',
   EVENT_TYPES = 'event-types',
   MANAGER = 'manager-view',

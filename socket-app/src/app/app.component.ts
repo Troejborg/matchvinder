@@ -74,13 +74,18 @@ export class AppComponent implements OnInit {
     });
   }
 
-  tryActivateManagerView() {
+  tryActivateManagerView_old() {
     if (this.isAuthenticated) {
       this.activeView = 'manager-view';
       this.router.navigate([ROUTES.MANAGER]);
     } else {
       $('#authModal').modal();
     }
+  }
+
+  tryActivateManagerView() {
+    this.activeView = 'manager-view';
+    this.router.navigate([ROUTES.LOGIN]);
   }
 
   setActiveView(viewName: string) {
