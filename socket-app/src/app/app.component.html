@@ -1,35 +1,38 @@
-<nav class="navbar navbar-light navigation-bar sticky-top">
-  <button class="menu-icon btn btn-link" style="margin-left: 5px;" [ngClass]="{'active': activeView === 'voting'}">
-    <i class="fas fa-vote-yea" (click)="setActiveView('voting')"></i>
-  </button>
-  <span class="mat-h2 title">Matchvinder</span>
-  <button class="menu-icon btn btn-link" [ngClass]="{'active': activeView === 'manager-view'}" style="margin-right: 5px;">
-    <i class="fas fa-tasks" (click)="tryActivateManagerView()" ></i>
-  </button>
-</nav>
-<div [@slideInOut]="prepareRoute(outlet)">
-  <router-outlet #outlet="outlet"></router-outlet>
-</div>
-<!-- Modal -->
-<div class="modal fade" id="authModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Indtast kode</h5>
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="modal-body">
-        <p>Indtast den meget hemmelige kode</p>
-        <div class="input-group flex-nowrap">
-          <input id="passwordField" type="password" class="form-control" aria-describedby="addon-wrapping" [(ngModel)]="inputPassword">
-        </div>
-      </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Luk</button>
-        <button type="button" class="btn btn-primary" (click)="tryAuthenticate()" >Log ind</button>
-      </div>
+<!--<nav class="navbar navbar-light navigation-bar sticky-top">-->
+<!--  <button class="menu-icon btn btn-link" style="margin-left: 5px;" [ngClass]="{'active': activeView === 'voting'}">-->
+<!--    <i class="fas fa-vote-yea" (click)="setActiveView('voting')"></i>-->
+<!--  </button>-->
+<!--  <span class="mat-h2 title">Matchvinder</span>-->
+<!--  <button class="menu-icon btn btn-link" [ngClass]="{'active': activeView === 'manager-view'}" style="margin-right: 5px;">-->
+<!--    <i class="fas fa-tasks" (click)="tryActivateManagerView()" ></i>-->
+<!--  </button>-->
+<!--</nav>-->
+<div class="page">
+  <header tabindex="0">Matchvinder</header>
+  <div id="nav-container" style="z-index: 9999;">
+    <div class="bg"></div>
+    <div class="button" tabindex="0">
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+      <span class="icon-bar"></span>
+    </div>
+    <div id="nav-content" tabindex="0">
+      <ul>
+        <li><a href="#0">Afstemning</a></li>
+        <li><a href="#0">Kampe</a></li>
+        <li><a href="#0">Statistik</a></li>
+        <li><a href="#0">Ny Kamp</a></li>
+        <li><a href="#0">Mit Hold</a></li>
+        <li><a href="#0">Event typer</a></li>
+        <li class="small"><a href="#0">Holdkode: 5274</a></li>
+      </ul>
+
     </div>
   </div>
+
+  <main>
+    <div class="content" [@slideInOut]="prepareRoute(outlet)">
+      <router-outlet #outlet="outlet"></router-outlet>
+    </div>
+  </main>
 </div>
