@@ -1,5 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-declare var FB: any;
+import {
+  AuthService,
+  FacebookLoginProvider, SocialUser
+} from 'angularx-social-login';
+import {Router} from '@angular/router';
+import {ROUTES} from '../../routes';
 
 @Component({
   selector: 'app-login',
@@ -7,33 +12,15 @@ declare var FB: any;
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
+  private user: SocialUser;
+  private loggedIn: boolean;
 
-  constructor() { }
+  constructor( private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
-    (window as any).fbAsyncInit = function() {
-      FB.init({
-        appId      : '354158228832101',
-        cookie     : true,
-        xfbml      : true,
-        version    : 'v3.3'
-      });
-      FB.AppEvents.logPageView();
-    };
-    (function(d, s, id) {
-      const fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) { return; }
-      const js = d.createElement(s); js.id = id;
-      // @ts-ignore
-      js.src = 'https://connect.facebook.net/en_US/sdk.js';
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-
-
     function processInput(holder) {
       const elements = holder.children(); // taking the "kids" of the parent
       let str = ''; // unnecessary || added for some future mods
-
       elements.each(function(e) {
         // iterates through each element
         // @ts-ignore
@@ -88,19 +75,39 @@ export class LoginComponent implements OnInit {
     });
 
   }
-
-  doFacebookLogin() {
-    console.log('submit login to facebook');
-    // FB.login();
-    FB.login((response) => {
-      console.log('submitLogin', response);
-      if (response.authResponse) {
-        // login success
-        // login success code here
-        // redirect to home page
-      } else {
-        console.log('User login failed');
+  public doFacebookLogin() {
+    const socialPlatformProvider = FacebookLoginProvider.PROVIDER_ID;
+    this.authService.signIn(socialPlatformProvider).then(
+      (userData) => {
+        // This will return user data from facebook. What you need is a user token which you will send it to the server
+        this.setCookie('USER_ID', userData.id, 30);
+        console.log('Success!', userData);
       }
-    });
+    );
   }
+
+  private setCookie(cname, cvalue, exdays) {
+    const d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    const expires = 'expires=' + d.toUTCString();
+    document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/';
+  }
+
+  private getCookie(cname) {
+    const name = cname + '=';
+    const decodedCookie = decodeURIComponent(document.cookie);
+    const ca = decodedCookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) === ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) === 0) {
+        return c.substring(name.length, c.length);
+      }
+    }
+    return '';
+  }
+
+
 }

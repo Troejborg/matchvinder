@@ -7,8 +7,6 @@ const matchSchema = new mongoose.Schema({
     default: Date.now
   },
   teamSheet: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Player' }],
-  events: [{ type: mongoose.Schema.Types.ObjectId, ref: 'MatchEvent' }],
-  matchWinnerVotes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'VoteResult' }],
   state: String,
   opponent: String,
   goalsFor: Number,

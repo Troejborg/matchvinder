@@ -1,107 +1,59 @@
-import {Component, OnInit} from '@angular/core';
-import {startWith} from 'rxjs/operators';
-import {VotingService} from './services/voting.service';
-import {Subscription} from 'rxjs';
-import {AppState} from './voting-state';
-import {Animations} from './animated/animations';
-import {Router, RouterOutlet} from '@angular/router';
+import { Component, OnInit } from '@angular/core';
+import {
+  AuthService,
+  FacebookLoginProvider, SocialUser
+} from 'angularx-social-login';
+import {Router} from '@angular/router';
 import {ROUTES} from './routes';
-
-declare var $: any;
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
-  animations: Animations.slideInOut
+  styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
-  public activeView: string;
-  public clientHeight: number;
-  private stateSubscription: Subscription;
-  private isAuthenticated: boolean;
-  public inputPassword: any;
-  private currentAppState: string | AppState;
+  private user: SocialUser;
+  private loggedIn: boolean;
 
-  constructor(private votingService: VotingService, private router: Router) {
-    this.isAuthenticated = false;
-    this.activeView = 'voting';
-    this.clientHeight = window.innerHeight;
-  }
-
+  constructor( private authService: AuthService, private router: Router) { }
 
   ngOnInit() {
-    this.votingService.getApplicationState();
-    this.stateSubscription = this.votingService.applicationState.pipe(
-      startWith(AppState.WAITING_FOR_MATCH)
-    ).subscribe(applicationState => {
-      if (applicationState !== this.currentAppState) {
-        this.currentAppState = applicationState;
-        if (this.activeView !== 'manager-view') {
-          this.navigateOnStateChange(applicationState);
-        }
-      }
-    });
-  }
-
-
-  private navigateOnStateChange(applicationState) {
-    switch (applicationState) {
-      case AppState.VOTING_FINISHED:
-        this.router.navigate([ROUTES.VOTE_RESULT]);
-        break;
-      case AppState.VOTING_ONGOING:
-        this.router.navigate([ROUTES.VOTING]);
-        break;
-      case AppState.WAITING_FOR_MATCH:
-        this.router.navigate([ROUTES.WAITING]);
-        break;
-    }
-  }
-
-  tryAuthenticate() {
-    this.votingService.tryAuth(this.inputPassword);
-    this.votingService.authAttempt.pipe(
-      startWith(false)
-    ).subscribe(isPassOK => {
-      this.isAuthenticated = isPassOK;
-      if (isPassOK) {
-        $('#authModal').modal('hide');
-        this.activeView = 'manager-view';
-        this.router.navigate([this.activeView]);
-
-      }
-    });
-  }
-
-  tryActivateManagerView_old() {
-    if (this.isAuthenticated) {
-      this.activeView = 'manager-view';
-      this.router.navigate([ROUTES.MANAGER]);
-    } else {
-      $('#authModal').modal();
-    }
-  }
-
-  tryActivateManagerView() {
-    this.activeView = 'manager-view';
     this.router.navigate([ROUTES.LOGIN]);
+    this.authService.authState.subscribe((user) => {
+      this.user = user;
+      this.loggedIn = user != null;
+      if (this.loggedIn || this.getCookie('TEAM_ID')) {
+        this.router.navigate([ROUTES.WAITING]);
+      }
+    });
   }
 
-  setActiveView(viewName: string) {
-    this.activeView = viewName;
-    if (viewName === 'manager-view') {
-      if (this.isAuthenticated) {
-        this.activeView = viewName;
-        this.router.navigate([ROUTES.MANAGER]);
-      } else {
-        $('#authModal').modal();
+  private setCookie(cname, cvalue, exdays) {
+    const d = new Date();
+    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+    const expires = 'expires=' + d.toUTCString();
+    document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/';
+  }
+
+  private getCookie(cname) {
+    const name = cname + '=';
+    const decodedCookie = decodeURIComponent(document.cookie);
+    const ca = decodedCookie.split(';');
+    for (let i = 0; i < ca.length; i++) {
+      let c = ca[i];
+      while (c.charAt(0) === ' ') {
+        c = c.substring(1);
+      }
+      if (c.indexOf(name) === 0) {
+        return c.substring(name.length, c.length);
       }
     }
-    this.router.navigate([viewName]);
+    return '';
   }
 
-  prepareRoute(outlet: RouterOutlet) {
-    return outlet && outlet.activatedRouteData;
+
+  navigateTo(route: string) {
+    this.router.navigate([ROUTES.WAITING]);
+    $('.content').focus();
   }
 }

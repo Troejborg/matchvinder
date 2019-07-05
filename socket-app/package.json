@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --ssl true",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -23,6 +23,7 @@
     "@angular/router": "~7.2.0",
     "@types/jquery": "^3.3.29",
     "angular-svg-round-progressbar": "^3.0.1",
+    "angularx-social-login": "^1.2.7",
     "bootstrap": "~4.3.1",
     "chart.js": "~2.8.0",
     "chartjs-plugin-annotation": "~0.5.7",

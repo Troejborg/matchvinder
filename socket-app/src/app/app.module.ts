@@ -21,6 +21,10 @@ import {ROUTES} from './routes';
 import { TeamRosterComponent } from './components/manager-view/team/team-roster/team-roster.component';
 import {EventTypesComponent} from './components/manager-view/team/event-types/event-types.component';
 import { MatchesPlayedComponent } from './components/matches-played/matches-played.component';
+import { MainComponent } from './components/main/main.component';
+import { SocialLoginModule, AuthServiceConfig } from 'angularx-social-login';
+import { FacebookLoginProvider } from 'angularx-social-login';
+import { getAuthServiceConfigs } from './socialLoginConfig';
 import { LoginComponent } from './components/login/login.component';
 
 
@@ -59,6 +63,7 @@ const appRoutes: Routes = [
       appRoutes,
       { enableTracing: true } // <-- debugging purposes only
     ),
+    SocialLoginModule,
     BrowserModule,
     HttpClientModule,
     BrowserAnimationsModule,    
@@ -68,7 +73,11 @@ const appRoutes: Routes = [
     RoundProgressModule,
     SwiperModule
   ],
-  providers: [],
+  providers: [
+    {
+      provide: AuthServiceConfig, useFactory: getAuthServiceConfigs
+    }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
