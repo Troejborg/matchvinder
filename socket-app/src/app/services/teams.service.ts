@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
+import {HttpClient, HttpParams} from '@angular/common/http';
 import {Observable} from 'rxjs';
 
 @Injectable({
@@ -23,6 +23,12 @@ export class TeamsService {
 
   private deleteEntity(endpoint: string, selectedPlayer: any) {
     return this.httpClient.delete(`${this.SERVER_URL}${endpoint}${selectedPlayer._id}`).toPromise();
+  }
+
+  public getTeamByOwnerId(userId: string) {
+    let params = new HttpParams();
+    params = params.append('user-id', userId);
+    return this.httpClient.get(this.SERVER_URL + '/team/', { params }).toPromise();
   }
 
   public getFullTeamRoster() {

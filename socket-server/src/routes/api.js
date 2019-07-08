@@ -3,7 +3,7 @@ const mongoose = require('mongoose');
 const express = require('express');
 const router = express.Router();
 
-const { Player, EventType } = require('../models/models').default;
+const { Player, EventType, Team } = require('../models/models').default;
 
 mongoose.connect("mongodb://localhost:27017/eif_database_1", { useNewUrlParser: true });
 
@@ -131,6 +131,18 @@ function createPlayer(req, res) {
     });
   });
 }
+
+/_ Get Team. _/
+router.get('/team', (req, res) => {
+  const userId = req.query['user-id'];
+  if (!!userId) {
+    Team.findByOwnerId(userId).then((err, team) => {
+      if (err) res.status(500).send(error);
+
+      res.status(200).json(team);
+    });
+  }
+});
 
 /_ EVENT TYPES _/
 router.get('/eventtypes', (req, res) => {

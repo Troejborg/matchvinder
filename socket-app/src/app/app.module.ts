@@ -26,6 +26,7 @@ import { SocialLoginModule, AuthServiceConfig } from 'angularx-social-login';
 import { FacebookLoginProvider } from 'angularx-social-login';
 import { getAuthServiceConfigs } from './socialLoginConfig';
 import { LoginComponent } from './components/login/login.component';
+import { NewTeamComponent } from './new-team/new-team.component';
 
 
 // const config: SocketIoConfig = { url: 'http://134.209.93.63:4444', options: {} };
@@ -41,7 +42,8 @@ const appRoutes: Routes = [
   { path: ROUTES.TEAM_ROSTER, component: TeamRosterComponent},
   { path: ROUTES.EVENT_TYPES, component: EventTypesComponent},
   { path: ROUTES.MATCHES_PLAYED, component: MatchesPlayedComponent},
-  { path: ROUTES.LOGIN, component: LoginComponent}
+  { path: ROUTES.LOGIN, component: LoginComponent},
+  { path: ROUTES.NEW_TEAM, component: NewTeamComponent}
 ];
 
 @NgModule({
@@ -56,12 +58,12 @@ const appRoutes: Routes = [
     TeamRosterComponent,
     EventTypesComponent,
     MatchesPlayedComponent,
-    LoginComponent
+    LoginComponent,
+    NewTeamComponent
   ],
   imports: [
     RouterModule.forRoot(
-      appRoutes,
-      { enableTracing: true } // <-- debugging purposes only
+      appRoutes
     ),
     SocialLoginModule,
     BrowserModule,
