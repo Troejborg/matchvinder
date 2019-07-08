@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {
   AuthService,
   FacebookLoginProvider, SocialUser
 } from 'angularx-social-login';
 import {Router} from '@angular/router';
-import {ROUTES} from '../../routes';
+import {TeamsService} from "../../services/teams.service";
 
 @Component({
   selector: 'app-login',
@@ -12,10 +12,7 @@ import {ROUTES} from '../../routes';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  private user: SocialUser;
-  private loggedIn: boolean;
-
-  constructor( private authService: AuthService, private router: Router) { }
+  constructor( private authService: AuthService, private teamService: TeamsService) { }
 
   ngOnInit() {
     function processInput(holder) {
@@ -55,9 +52,34 @@ export class LoginComponent implements OnInit {
       });
     }
 
+
+    function extractTeamCode() {
+      let teamCode = '';
+      $('#inputs').children().each((index, element) => {
+        if (element['value']) {
+          teamCode += element['value'];
+        }
+      });
+      return teamCode;
+    }
+
+    // tslint:disable-next-line:no-shadowed-variable
+    async function tryTeamCodeLogin(teamCode, that) {
+      console.log('Login time!', teamCode);
+      const team = await that.teamService.getTeamByCode(teamCode);
+
+      console.log(team);
+    }
+
     const inputElements = $('#inputs');
+    const that = this;
     inputElements.on('input', function() {
       processInput($(this));
+
+      const teamCode = extractTeamCode();
+      if (teamCode.length === 4) {
+        tryTeamCodeLogin(teamCode, that);
+      }
     }); // still wonder how it worked out. But we are adding input listener to the parent... (omg, jquery is so smart...);
 
     inputElements.on('click', function() {
@@ -75,6 +97,7 @@ export class LoginComponent implements OnInit {
     });
 
   }
+
   public doFacebookLogin() {
     const socialPlatformProvider = FacebookLoginProvider.PROVIDER_ID;
     this.authService.signIn(socialPlatformProvider).then(

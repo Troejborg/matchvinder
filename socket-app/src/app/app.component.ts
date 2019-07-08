@@ -17,6 +17,7 @@ export class AppComponent implements OnInit {
   private loggedIn: boolean;
   public isMenuVisible = true;
   @ViewChild('content') content: ElementRef<HTMLElement>;
+  team: any = {};
 
   constructor( private authService: AuthService, private router: Router, private teamService: TeamsService) { }
 
@@ -27,7 +28,8 @@ export class AppComponent implements OnInit {
       this.loggedIn = user != null;
       if (this.loggedIn) {
         this.teamService.getTeamByOwnerId(this.user.id).then((team) => {
-          if (team) {
+          if (team[0]) {
+            this.team = team[0];
             this.router.navigate([ROUTES.WAITING]);
           } else {
             this.router.navigate([ROUTES.NEW_TEAM]);

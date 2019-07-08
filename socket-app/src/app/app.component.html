@@ -1,21 +1,21 @@
 <div class="page">
   <header tabindex="0">Matchvinder</header>
-  <div id="nav-container" style="z-index: 9999;" (click)="isMenuVisible = !isMenuVisible">
+  <div id="nav-container" style="z-index: 950;" *ngIf="loggedIn" (click)="isMenuVisible = !isMenuVisible">
     <div class="bg"></div>
     <div class="button" tabindex="0" (click)="isMenuVisible = true">
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </div>
-    <div id="nav-content" tabindex="0">
+    <div id="nav-content" tabindex="0" (click)="isMenuVisible =!isMenuVisible">
       <ul *ngIf="isMenuVisible">
-        <li (click)="isMenuVisible =!isMenuVisible"><a routerLink="/waiting-for-match">Afstemning</a></li>
-        <li (click)="isMenuVisible =!isMenuVisible"><a routerLink="/waiting-for-match">Kampe</a></li>
-        <li (click)="isMenuVisible =!isMenuVisible"><a routerLink="/waiting-for-match">Statistik</a></li>
-        <li (click)="isMenuVisible =!isMenuVisible"><a routerLink="/waiting-for-match">Ny Kamp</a></li>
-        <li (click)="isMenuVisible =!isMenuVisible"><a routerLink="/team-roster">Mit Hold</a></li>
-        <li (click)="isMenuVisible =!isMenuVisible"><a routerLink="/event-types">Event typer</a></li>
-        <li class="small"><a href="">Holdkode: 5274</a></li>
+        <li ><a routerLink="/waiting-for-match">Afstemning</a></li>
+        <li ><a routerLink="/waiting-for-match">Kampe</a></li>
+        <li ><a routerLink="/waiting-for-match">Statistik</a></li>
+        <li ><a routerLink="/waiting-for-match">Ny Kamp</a></li>
+        <li ><a routerLink="/team-roster">Mit Hold</a></li>
+        <li ><a routerLink="/event-types">Event typer</a></li>
+        <li class="small"><a href="">Holdkode: {{team.teamCode}}</a></li>
       </ul>
 
     </div>

@@ -132,6 +132,15 @@ function createPlayer(req, res) {
   });
 }
 
+/_ GET all Teams. _/
+router.get('/team', (req, res) => {
+  Team.find({}, (err, teams) => {
+    if (err) res.status(500).send(error);
+
+    res.status(200).json(teams);
+  });
+});
+
 /_ Get Team. _/
 router.get('/team', (req, res) => {
   const userId = req.query['user-id'];
@@ -143,6 +152,60 @@ router.get('/team', (req, res) => {
     });
   }
 });
+
+/_ Create Team. _/
+router.post('/team', (req, res) => {
+  getFirstAvailableTeamCode().then((availableTeamCode) => {
+    const newTeamData = req.body.newTeam;
+    const owner = req.body.owner;
+
+    let team = new Team({
+      longName: newTeamData.longName,
+      shortName: newTeamData.shortName,
+      ownerId: owner.id,
+      teamCode: availableTeamCode
+    });
+    team.save(error => {
+      if (error) res.status(500).send(error);
+
+      res.status(201).json({
+        message: `Team  ${team.longName} created successfully`
+      });
+    });
+  });
+});
+
+async function getFirstAvailableTeamCode() {
+  let teamCodeSuggestion, foundValidNumber = false;
+  while(!foundValidNumber) {
+    teamCodeSuggestion = Math.floor(
+        Math.random() * (9999 - 1000) + 1000
+    );
+    foundValidNumber = await Team.findByOwnerId(teamCodeSuggestion) == null;
+  }
+
+  return teamCodeSuggestion;
+}
+
+router.route('/team/:teamcode')
+    .get((req, res) => {
+      let teamCode = parseInt(req.params.teamcode);
+      Team.findByTeamCode(teamCode, (err, team) => {
+        if (err) res.status(500).send(error);
+
+        res.status(200).json(team);
+      });
+    })
+    .delete((req, res) => {
+      Team.deleteOne({
+        "teamCode": req.params.teamcode
+      }, function(err, eventType) {
+        if (err)
+          res.send(err);
+
+        res.json({ message: 'Successfully deleted player: ' + eventType.eventName });
+      });
+    });
 
 /_ EVENT TYPES _/
 router.get('/eventtypes', (req, res) => {

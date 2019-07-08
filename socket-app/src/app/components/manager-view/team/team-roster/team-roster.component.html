@@ -1,14 +1,14 @@
-<ul class="list-group">
-  <li class="list-group-item list-group-item-action" *ngFor="let player of teamRoster" (click)="openEditPlayerDialog(player)">{{player.name}}</li>
-</ul>
-<nav class="navbar fixed-bottom navbar-light" style="background-color: white;">
-  <div>
-    <button (click)="openEditPlayerDialog(null)" class="btn btn-outline-success start-btn">Tilføj spiller</button>
-  </div>
-</nav>
 
+  <ul class="list-group container">
+    <li class="list-group-item list-group-item-action" *ngFor="let player of teamRoster" (click)="openEditPlayerDialog(player)">{{player.name}}</li>
+  </ul>
+  <nav class="navbar fixed-bottom navbar-light" style="background-color: white;">
+    <div>
+      <button (click)="openEditPlayerDialog(null)" class="btn btn-outline-success start-btn">Tilføj spiller</button>
+    </div>
+  </nav>
 <!-- Modal -->
-<div class="modal fade" id="editPlayerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+<div class="modal fade matchwinner-modal" id="editPlayerModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
@@ -41,7 +41,7 @@
           <div class="form-group">
             <label for="shirtNo">Trøjenummer</label>
             <select id="shirtNo" class="form-control" required [(ngModel)]="selectedPlayer.shirtNo" name="shirtno">
-              <option selected>Choose...</option>
+              <option selected>Vælg et nummer..</option>
               <option *ngIf="selectedPlayer.shirtNo">{{selectedPlayer.shirtNo}}</option>
               <option *ngFor="let shirtNo of availableShirtNos">{{shirtNo}}</option>
             </select>

@@ -11,14 +11,15 @@ export class TeamsService {
 
   private playerEndpoint = '/players/';
   private eventTypeEndpoint = '/eventtypes/';
+  private teamEndpoint = '/team/';
 
 
   private getAllEntities(endpoint: string) {
     return this.httpClient.get(this.SERVER_URL + endpoint).toPromise();
   }
 
-  private createOrUpdateEntity(endpoint: string, selectedPlayer: any) {
-    return this.httpClient.post(this.SERVER_URL + endpoint, selectedPlayer).toPromise();
+  private createOrUpdateEntity(endpoint: string, entity: any) {
+    return this.httpClient.post(this.SERVER_URL + endpoint, entity).toPromise();
   }
 
   private deleteEntity(endpoint: string, selectedPlayer: any) {
@@ -29,6 +30,16 @@ export class TeamsService {
     let params = new HttpParams();
     params = params.append('user-id', userId);
     return this.httpClient.get(this.SERVER_URL + '/team/', { params }).toPromise();
+  }
+
+  public getTeamByCode(teamCode: string) {
+    return this.httpClient.get(`${this.SERVER_URL}${this.teamEndpoint}${teamCode}`).toPromise();
+  }
+
+  public createTeam(newTeam: any, owner: any) {
+    return this.createOrUpdateEntity(this.teamEndpoint, {
+      newTeam: newTeam,
+      owner: owner});
   }
 
   public getFullTeamRoster() {

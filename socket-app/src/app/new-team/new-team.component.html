@@ -1,3 +1,18 @@
-<p>
-  new-team works!
-</p>
+<h3>Opret hold</h3>
+<p class="font-weight-lighter">Du har endnu ikke oprettet et hold. Kom igang ved at udfylde felterne nedenfor!</p>
+<form>
+  <div class="form-group">
+    <label for="inputTeamName">Holdnavn</label>
+    <input type="text" class="form-control" id="inputTeamName" aria-describedby="longNameHelp" placeholder="Holdnavn FC"
+           [(ngModel)]="newTeam.longName" name="longName">
+    <small id="longNameHelp" class="form-text text-muted">Vi vil gerne have dit holds navn i dets fulde længde.</small>
+  </div>
+  <div class="form-group">
+    <label for="inputShorName">Kort Holdnavn</label>
+    <input type="text" class="form-control" id="inputShorName" placeholder="HFC" aria-describedby="shortNameHelp"
+           [(ngModel)]="newTeam.identifier"
+            name="identifier">
+    <small id="shortNameHelp" class="form-text text-muted">eg: 'EIF'</small>
+  </div>
+  <button type="submit" class="btn btn-primary" (click)="createTeam(newTeam)">Næste</button>
+</form>

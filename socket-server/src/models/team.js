@@ -1,8 +1,9 @@
 const mongoose = require('mongoose');
 
 const teamSchema = new mongoose.Schema({
-  identifier : { type: Number, unique: true, required: true},
+  teamCode : { type: Number, unique: true, required: true},
   longName: { type: String},
+  shortName: { type: String},
   users: [{ type: mongoose.Schema.Types.ObjectId, ref: 'User' }],
   ownerId: { type: String, required: true}
 });
@@ -10,6 +11,12 @@ const teamSchema = new mongoose.Schema({
 teamSchema.statics.findByOwnerId = async function (ownerID) {
   return await this.findOne({
     ownerID: ownerID
+  });
+};
+
+teamSchema.statics.findByTeamCode = async function (teamCode) {
+  return await this.findOne({
+    teamCode: teamCode
   });
 };
 
