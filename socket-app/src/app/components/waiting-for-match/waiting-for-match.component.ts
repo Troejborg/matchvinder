@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {TeamsService} from "../../services/teams.service";
 
 @Component({
   selector: 'app-waiting-for-match',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WaitingForMatchComponent implements OnInit {
 
-  constructor() { }
+  constructor(private teamService: TeamsService) { }
 
   ngOnInit() {
   }

@@ -8,9 +8,9 @@ const teamSchema = new mongoose.Schema({
   ownerId: { type: String, required: true}
 });
 
-teamSchema.statics.findByOwnerId = async function (ownerID) {
+teamSchema.statics.findByOwnerId = async function (ownerId) {
   return await this.findOne({
-    ownerID: ownerID
+    ownerId: ownerId
   });
 };
 

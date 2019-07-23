@@ -9,10 +9,18 @@ export class TeamsService {
   private SERVER_URL: String = 'http://localhost:4444';
   constructor(private httpClient: HttpClient) {}
 
-  private playerEndpoint = '/players/';
-  private eventTypeEndpoint = '/eventtypes/';
-  private teamEndpoint = '/team/';
+  private playerEndpoint = '/players';
+  private eventTypeEndpoint = '/eventtypes';
+  private teamEndpoint = '/team';
+  private team: any;
 
+  public setTeamId(foo) {
+    this.team = foo;
+  }
+
+  public getTeamId() {
+    return this.team;
+  }
 
   private getAllEntities(endpoint: string) {
     return this.httpClient.get(this.SERVER_URL + endpoint).toPromise();
@@ -27,13 +35,23 @@ export class TeamsService {
   }
 
   public getTeamByOwnerId(userId: string) {
-    let params = new HttpParams();
-    params = params.append('user-id', userId);
-    return this.httpClient.get(this.SERVER_URL + '/team/', { params }).toPromise();
+    return this.getTeam('ownerid', userId);
   }
 
   public getTeamByCode(teamCode: string) {
-    return this.httpClient.get(`${this.SERVER_URL}${this.teamEndpoint}${teamCode}`).toPromise();
+    return this.getTeam('teamcode', teamCode);
+  }
+
+  private getTeam(paramName: string, param: string) {
+    let params = new HttpParams();
+    params = params.append(paramName, param);
+    const promise = this.httpClient.get(this.SERVER_URL + this.teamEndpoint, { params }).toPromise();
+    promise.then((result) => {
+      if (result) {
+        this.team = result;
+      }
+    });
+    return promise;
   }
 
   public createTeam(newTeam: any, owner: any) {
@@ -43,7 +61,9 @@ export class TeamsService {
   }
 
   public getFullTeamRoster() {
-    return this.getAllEntities(this.playerEndpoint);
+    let params = new HttpParams();
+    params = params.append('team', this.team._id);
+    return this.httpClient.get(this.SERVER_URL + this.playerEndpoint, { params }).toPromise();
   }
 
   public createOrUpdatePlayer(selectedPlayer: any): Promise<Object>  {

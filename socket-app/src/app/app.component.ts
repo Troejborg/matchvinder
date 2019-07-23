@@ -5,7 +5,7 @@ import {
 } from 'angularx-social-login';
 import {Router} from '@angular/router';
 import {ROUTES} from './routes';
-import {TeamsService} from "./services/teams.service";
+import {TeamsService} from './services/teams.service';
 
 @Component({
   selector: 'app-root',
@@ -28,8 +28,9 @@ export class AppComponent implements OnInit {
       this.loggedIn = user != null;
       if (this.loggedIn) {
         this.teamService.getTeamByOwnerId(this.user.id).then((team) => {
-          if (team[0]) {
-            this.team = team[0];
+          if (team) {
+            console.log(this.teamService.getTeamId());
+            this.team = team;
             this.router.navigate([ROUTES.WAITING]);
           } else {
             this.router.navigate([ROUTES.NEW_TEAM]);

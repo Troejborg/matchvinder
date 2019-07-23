@@ -6,13 +6,17 @@ const path = require('path');
 const bodyParser = require('body-parser');
 // Get our API routes
 const api = require('./routes/api');
+const playerRoutes = require('./routes/players');
+const eventRoutes = require('./routes/events');
+const teamRoutes = require('./routes/team');
+
 const models = require('./models/models').default;
 const express = require('express');
 
 // Cross Origin middleware
 app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*")
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept")
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
   res.header("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, DELETE");
   next()
 });
@@ -24,6 +28,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 const ROOT_PASSWORD = process.env.password || 'supersecret';
 console.log(ROOT_PASSWORD);
 
+app.use('/players', playerRoutes);
+app.use('/team', teamRoutes);
+app.use('events', eventRoutes);
 app.use('/', api);
 
 let voteEntries = [];
