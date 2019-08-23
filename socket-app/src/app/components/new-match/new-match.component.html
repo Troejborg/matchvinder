@@ -1,3 +1,33 @@
-<p>
-  new-match works!
-</p>
+<div class="top-section">
+  <h3>Ny kamp</h3>
+  <div class="sub-section">
+    <div class="form-group">
+      <label for="awayTeam">Modstander</label>
+      <input type="text" class="form-control" id="awayTeam" placeholder="Ærkerival FC" [(ngModel)]="awayTeam" name="name">
+    </div>
+  </div>
+</div>
+<label>Holdkort</label>
+<div class="border roster-section">
+  <div class="list-group">
+    <div *ngFor="let player of teamRoster">
+      <input type="checkbox" name="CheckBoxInputName" id="{{player.name}}"/>
+      <label class="list-group-item" for="{{player.name}}"
+             (click)="selectPlayer(player)">{{player.name}}</label>
+    </div>
+    <nav class="navbar fixed-bottom navbar-light" style="background-color: white;">
+    <span style="width: 40px;">
+      <button class="menu-icon btn btn-outline-primary selected-players-counter active" [ngClass]="{'active': selectedPlayers.length == 14}" disabled>{{selectedPlayers.length}}/14</button>
+    </span>
+      <div class="btn-group" role="group" aria-label="Basic example">
+        <button class="menu-icon btn btn-outline-primary" disabled>Holdleder</button>
+        <button class="menu-icon btn btn-outline-primary" [ngClass]="{'active': isTeamLeadPlaying}" (click)="isTeamLeadPlaying = true">Ja</button>
+        <button class="menu-icon btn btn-outline-primary" [ngClass]="{'active': !isTeamLeadPlaying}" (click)="isTeamLeadPlaying = false">Nej</button>
+      </div>
+      <div>
+        <button (click)="startMatch()" class="btn btn-outline-success start-btn">Start Kamp</button>
+      </div>
+    </nav>
+  </div>
+</div>
+

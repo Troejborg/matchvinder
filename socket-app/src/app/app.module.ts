@@ -44,7 +44,8 @@ const appRoutes: Routes = [
   { path: ROUTES.MATCHES_PLAYED, component: MatchesPlayedComponent},
   { path: ROUTES.LOGIN, component: LoginComponent},
   { path: ROUTES.NEW_TEAM, component: NewTeamComponent},
-  { path: ROUTES.TEAM_SETUP, component: TeamSetupComponent}
+  { path: ROUTES.TEAM_SETUP, component: TeamSetupComponent},
+  { path: ROUTES.NEW_MATCH, component: NewMatchComponent}
 ];
 
 @NgModule({

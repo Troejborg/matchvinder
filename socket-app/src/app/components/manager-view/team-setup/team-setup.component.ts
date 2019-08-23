@@ -79,8 +79,7 @@ export class TeamSetupComponent implements OnInit {
   async ngOnInit() {
     this.team = this.teamService.getTeam();
     this.selectedCategory = this.defaultCategories[0];
-    let teamEventTypes = await this.eventService.getTeamEventTypes();
-    teamEventTypes = teamEventTypes.filter(eventType => eventType.category === 'STATICS');
+    const teamEventTypes = await this.eventService.getTeamEventTypes('STATICS');
 
 
     this.defaultCategories.forEach( (eventCategory) => {

@@ -15,8 +15,7 @@ export class EventTypesComponent implements OnInit {
   constructor(private eventService: EventService) { }
 
   async ngOnInit() {
-    const eventTypes = await this.eventService.getTeamEventTypes();
-    this.eventTypes = eventTypes.filter(eventType => eventType.category === 'CUSTOM');
+    this.eventTypes = await this.eventService.getTeamEventTypes('CUSTOM');
   }
 
   openEditEventTypeDialog(eventType: any) {
@@ -33,13 +32,13 @@ export class EventTypesComponent implements OnInit {
 
   async createOrUpdate() {
     await this.eventService.createOrUpdateEventType(this.selectedType);
-    this.eventTypes = await this.eventService.getTeamEventTypes();
+    this.eventTypes = await this.eventService.getTeamEventTypes('CUSTOM');
     $('#editEventTypeModal').modal('hide');
   }
 
   async deleteEventType() {
     await this.eventService.deleteEventType(this.selectedType);
-    this.eventTypes = await this.eventService.getTeamEventTypes();
+    this.eventTypes = await this.eventService.getTeamEventTypes('CUSTOM');
     $('#editEventTypeModal').modal('hide');
   }
 

@@ -13,10 +13,13 @@ export class EventService {
   private team: any;
   constructor(private httpClient: HttpClient, private teamsService: TeamsService) {}
 
-  public async getTeamEventTypes(): Promise<EventType[]> {
+  public async getTeamEventTypes(category: string): Promise<EventType[]> {
     this.team = await this.teamsService.getTeamByCode(CookieHelper.getCookie('TEAM_CODE'));
     const params = new HttpParams()
       .append('team', this.team._id);
+    if (category) {
+      params.append('category', category);
+    }
     return this.getAllEntities(this.eventTypeEndpoint + '/by-team', params);
   }
 

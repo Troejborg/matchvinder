@@ -19,7 +19,7 @@ const eventTypeSchema = new mongoose.Schema({
 
 eventTypeSchema.statics.findByTeamAndCategory = async function (teamId, category) {
   const queryParams = {
-    team: teamId,
+    team: teamId
   };
   if (category) {
     queryParams.category = category;

@@ -1,4 +1,5 @@
 export enum ROUTES {
+  NEW_MATCH = 'new-match',
   NEW_TEAM = 'new-team',
   LOGIN = 'login-page',
   MATCHES_PLAYED = 'matches-played',
