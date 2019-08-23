@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {TeamsService} from '../../../../services/teams.service';
+import {EventService} from '../../../../services/event-service';
 declare var $: any;
 
 @Component({
@@ -11,10 +12,11 @@ export class EventTypesComponent implements OnInit {
   public eventTypes;
   public selectedType: any = {};
 
-  constructor(private teamService: TeamsService) { }
+  constructor(private eventService: EventService) { }
 
   async ngOnInit() {
-    this.eventTypes = await this.teamService.getTeamEventTypes();
+    const eventTypes = await this.eventService.getTeamEventTypes();
+    this.eventTypes = eventTypes.filter(eventType => eventType.category === 'CUSTOM');
   }
 
   openEditEventTypeDialog(eventType: any) {
@@ -30,14 +32,14 @@ export class EventTypesComponent implements OnInit {
   }
 
   async createOrUpdate() {
-    await this.teamService.createOrUpdateEventType(this.selectedType);
-    this.eventTypes = await this.teamService.getTeamEventTypes();
+    await this.eventService.createOrUpdateEventType(this.selectedType);
+    this.eventTypes = await this.eventService.getTeamEventTypes();
     $('#editEventTypeModal').modal('hide');
   }
 
   async deleteEventType() {
-    await this.teamService.deleteEventType(this.selectedType);
-    this.eventTypes = await this.teamService.getTeamEventTypes();
+    await this.eventService.deleteEventType(this.selectedType);
+    this.eventTypes = await this.eventService.getTeamEventTypes();
     $('#editEventTypeModal').modal('hide');
   }
 

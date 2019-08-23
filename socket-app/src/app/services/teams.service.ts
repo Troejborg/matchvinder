@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
-import {Observable} from 'rxjs';
+import Team from '../models/team';
 
 @Injectable({
   providedIn: 'root'
@@ -10,20 +10,20 @@ export class TeamsService {
   constructor(private httpClient: HttpClient) {}
 
   private playerEndpoint = '/players';
-  private eventTypeEndpoint = '/eventtypes';
+  private eventTypeEndpoint = '/eventtype';
   private teamEndpoint = '/team';
-  private team: any;
+  private team: Team;
 
-  public setTeamId(foo) {
-    this.team = foo;
+  public setTeam(team) {
+    this.team = team;
   }
 
-  public getTeamId() {
+  public getTeam() {
     return this.team;
   }
 
-  private getAllEntities(endpoint: string) {
-    return this.httpClient.get(this.SERVER_URL + endpoint).toPromise();
+  private getAllEntities(endpoint: string, params: HttpParams) {
+    return this.httpClient.get(this.SERVER_URL + endpoint, { params}).toPromise();
   }
 
   private createOrUpdateEntity(endpoint: string, entity: any) {
@@ -35,34 +35,40 @@ export class TeamsService {
   }
 
   public getTeamByOwnerId(userId: string) {
-    return this.getTeam('ownerid', userId);
+    return this.fetchTeam('ownerid', userId);
   }
 
   public getTeamByCode(teamCode: string) {
-    return this.getTeam('teamcode', teamCode);
+    return this.fetchTeam('teamcode', teamCode);
   }
 
-  private getTeam(paramName: string, param: string) {
-    let params = new HttpParams();
-    params = params.append(paramName, param);
-    const promise = this.httpClient.get(this.SERVER_URL + this.teamEndpoint, { params }).toPromise();
-    promise.then((result) => {
-      if (result) {
-        this.team = result;
-      }
-    });
+  private fetchTeam(paramName: string, param: string): Promise<Team> {
+    let promise;
+    if (this.team) {
+      console.log('Already fetched team', this.team);
+      promise = Promise.resolve(this.team);
+    } else {
+      const params = new HttpParams().append(paramName, param);
+      promise = this.httpClient.get(this.SERVER_URL + this.teamEndpoint, { params }).toPromise<any>();
+      promise.then((result) => {
+        if (result) {
+          this.team = result;
+          console.log('Successfully fetched team, ', this.team);
+        }
+      });
+    }
     return promise;
   }
 
-  public createTeam(newTeam: any, owner: any) {
+  public createOrUpdateTeam(team: any, owner: any) {
     return this.createOrUpdateEntity(this.teamEndpoint, {
-      newTeam: newTeam,
+      team: team,
       owner: owner});
   }
 
-  public getFullTeamRoster() {
-    let params = new HttpParams();
-    params = params.append('team', this.team._id);
+  public getFullTeamRoster(): Promise<any> {
+    const params = new HttpParams()
+      .append('team', this.team._id);
     return this.httpClient.get(this.SERVER_URL + this.playerEndpoint, { params }).toPromise();
   }
 
@@ -72,17 +78,5 @@ export class TeamsService {
 
   public deletePlayer(selectedPlayer: any): Promise<Object>  {
     return this.deleteEntity(this.playerEndpoint, selectedPlayer);
-  }
-
-  public getTeamEventTypes() {
-    return this.getAllEntities(this.eventTypeEndpoint);
-  }
-
-  public createOrUpdateEventType(eventType: any): Promise<Object>  {
-    return this.createOrUpdateEntity(this.eventTypeEndpoint, eventType);
-  }
-
-  public deleteEventType(eventType: any): Promise<Object>  {
-    return this.deleteEntity(this.eventTypeEndpoint, eventType);
   }
 }

@@ -1,3 +1,18 @@
-<p>
-  matches-played works!
-</p>
+<ul class="list-group" *ngFor="let match of playedMatches">
+  <a class="list-group-item list-group-item-action">
+    <div class="d-flex w-100 justify-content-between">
+      <div class="d-flex justify-content-between">
+        <span class="result-badge"
+              [ngClass]="{
+            'victory': match.goalsFor > match.goalsAgainst,
+            'defeat': match.goalsFor < match.goalsAgainst
+            }">{{getBadgeIcon(match)}}</span>
+        <h5 class="mb-1">{{match.awayTeam}}</h5>
+      </div>
+      <small class="text-muted">{{match.date.toLocaleDateString()}}</small>
+    </div>
+    <p class="mb-1">{{match.goalsFor}} : {{match.goalsAgainst}}</p>
+    <small class="text-muted">Se mere</small>
+  </a>
+
+</ul>

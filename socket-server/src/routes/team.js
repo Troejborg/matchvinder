@@ -14,12 +14,11 @@ team.route('/')
           } else {
             res.status(200).json(team);
           }
-
         });
       }
       else if(!!teamCode) {
         Team.findByTeamCode(parseInt(teamCode, 10)).then( (team, err) => {
-          if (err) res.status(500).send(error);
+          if (err) res.status(500).send(err);
 
           res.status(200).json(team);
         });
@@ -30,31 +29,30 @@ team.route('/')
     })
     .delete((req, res) => {
       Team.deleteOne({
-        "teamCode": req.params.teamcode
-      }, function(err, eventType) {
+        "teamCode": req.query.teamcode
+      }, function(err, response) {
         if (err)
           res.send(err);
-
-        res.json({ message: 'Successfully deleted player: ' + eventType.eventName });
+        res.json({ message: 'Teams deleted: ' + response.deletedCount});
       });
     });
 team.get('/all', (req, res) => {
   Team.find({}, (err, teams) => {
-    if (err) res.status(500).send(error);
+    if (err) res.status(500).send(err);
 
     res.status(200).json(teams);
   });
 });
 
 /_ Create Team. _/
-team.post('/', (req, res) => {
+
+function createTeam(newTeamData, owner, res) {
   getFirstAvailableTeamCode().then((availableTeamCode) => {
     const newTeamData = req.body.newTeam;
     const owner = req.body.owner;
-
     let team = new Team({
       longName: newTeamData.longName,
-      shortName: newTeamData.shortName,
+      shortName: newTeamData.identifier,
       ownerId: owner.id,
       teamCode: availableTeamCode
     });
@@ -65,7 +63,29 @@ team.post('/', (req, res) => {
         message: `Team  ${team.longName} created successfully`
       });
     });
+  })
+}
+
+function updateTeam(req, res) {
+  Team.findById(req.body.team._id, (err, team) => {
+    if (err) res.status(500).send(err);
+    team = Object.assign(team, req.body.team);
+    team.save(error => {
+      if (error) res.status(500).send(error);
+
+      res.status(201).json({
+        message: `Team updated successfully`
+      });
+    });
   });
+}
+
+team.post('/', (req, res) => {
+  if(req.body.team._id) {
+    updateTeam(req, res)
+  } else {
+    createTeam(req, res);
+  }
 });
 
 async function getFirstAvailableTeamCode() {

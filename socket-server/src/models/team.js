@@ -20,6 +20,12 @@ teamSchema.statics.findByTeamCode = async function (teamCode) {
   });
 };
 
+teamSchema.statics.deleteByTeamCode = async function (teamCode) {
+  return await this.deleteOne({
+    teamCode: teamCode
+  });
+};
+
 const Team = mongoose.model('Team', teamSchema);
 
 exports.default = Team;

@@ -1,0 +1,39 @@
+<h3>Holdopsætning</h3>
+<p class="font-weight-lighter">Her kan du ændre på bl.a. point og bødetakster</p>
+<form>
+  <div class="form-group">
+    <label for="inputTeamName">Holdnavn</label>
+    <input type="text" class="form-control" id="inputTeamName" aria-describedby="longNameHelp" placeholder="Holdnavn FC"
+           [(ngModel)]="team.longName"
+           (blur)="updateTeam()"
+           name="longName">
+    <small id="longNameHelp" class="form-text text-muted">Vi vil gerne have dit holds navn i dets fulde længde.</small>
+  </div>
+  <div class="form-group">
+    <label for="inputShorName">Kort Holdnavn</label>
+    <input type="text" class="form-control" id="inputShorName" placeholder="HFC" aria-describedby="shortNameHelp"
+           [(ngModel)]="team.shortName"
+           (blur)="updateTeam()"
+           name="identifier">
+    <small id="shortNameHelp" class="form-text text-muted">eg: 'EIF'</small>
+  </div>
+  <h4>Pointfordeling</h4>
+  <div class="card bottom-margin">
+    <div class="card-header">
+      <ul class="nav nav-tabs card-header-tabs">
+        <li class="nav-item" *ngFor="let category of eventCategories">
+          <a class="nav-link" (click)="selectedCategory = category" [ngClass]="{'active': category.title == selectedCategory.title}">{{category.title}}</a>
+        </li>
+      </ul>
+    </div>
+    <div class="card-body">
+      <div class="container">
+        <div class="row bottom-margin" *ngFor="let eventType of selectedCategory.eventTypes; let i = index">
+          <div class="col-8"><span style="line-height:38px;">{{eventType.displayName}}</span></div>
+          <div class="col-4"><input class="form-control" type="number" name="pointVal"
+            [(ngModel)]="eventType.pointValue" [ngModelOptions]="{standalone: true}" (blur)="updateEventType(i)"/></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</form>

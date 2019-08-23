@@ -1,10 +1,12 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {
   AuthService,
-  FacebookLoginProvider, SocialUser
+  FacebookLoginProvider
 } from 'angularx-social-login';
+import * as CookieHelper from '../../services/cookie-helper';
+import {ROUTES} from '../../routes';
 import {Router} from '@angular/router';
-import {TeamsService} from "../../services/teams.service";
+import {TeamsService} from '../../services/teams.service';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +14,7 @@ import {TeamsService} from "../../services/teams.service";
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  constructor( private authService: AuthService, private teamService: TeamsService) { }
+  constructor( private authService: AuthService, private router: Router, private teamService: TeamsService) { }
 
   ngOnInit() {
     function processInput(holder) {
@@ -67,8 +69,11 @@ export class LoginComponent implements OnInit {
     async function tryTeamCodeLogin(teamCode, that) {
       console.log('Login time!', teamCode);
       const team = await that.teamService.getTeamByCode(teamCode);
-
-      console.log(team);
+      if (team) {
+        CookieHelper.setCookie('TEAM_CODE', team.teamCode, 300);
+        that.router.navigate([ROUTES.WAITING]);
+        console.log(team);
+      }
     }
 
     const inputElements = $('#inputs');
@@ -103,34 +108,9 @@ export class LoginComponent implements OnInit {
     this.authService.signIn(socialPlatformProvider).then(
       (userData) => {
         // This will return user data from facebook. What you need is a user token which you will send it to the server
-        this.setCookie('USER_ID', userData.id, 30);
+        CookieHelper.setCookie('USER_ID', userData.id, 30);
         console.log('Success!', userData);
       }
     );
   }
-
-  private setCookie(cname, cvalue, exdays) {
-    const d = new Date();
-    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-    const expires = 'expires=' + d.toUTCString();
-    document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/';
-  }
-
-  private getCookie(cname) {
-    const name = cname + '=';
-    const decodedCookie = decodeURIComponent(document.cookie);
-    const ca = decodedCookie.split(';');
-    for (let i = 0; i < ca.length; i++) {
-      let c = ca[i];
-      while (c.charAt(0) === ' ') {
-        c = c.substring(1);
-      }
-      if (c.indexOf(name) === 0) {
-        return c.substring(name.length, c.length);
-      }
-    }
-    return '';
-  }
-
-
 }

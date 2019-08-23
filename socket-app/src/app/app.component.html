@@ -1,6 +1,6 @@
 <div class="page">
   <header tabindex="0">Matchvinder</header>
-  <div id="nav-container" style="z-index: 950;" *ngIf="loggedIn" (click)="isMenuVisible = !isMenuVisible">
+  <div id="nav-container" style="z-index: 950;" *ngIf="team" (click)="isMenuVisible = !isMenuVisible">
     <div class="bg"></div>
     <div class="button" tabindex="0" (click)="isMenuVisible = true">
       <span class="icon-bar"></span>
@@ -10,16 +10,17 @@
     <div id="nav-content" tabindex="0" (click)="isMenuVisible =!isMenuVisible">
       <ul *ngIf="isMenuVisible">
         <li ><a routerLink="/waiting-for-match">Afstemning</a></li>
-        <li ><a routerLink="/waiting-for-match">Kampe</a></li>
+        <li ><a routerLink="/matches-played">Kampe</a></li>
         <li ><a routerLink="/waiting-for-match">Statistik</a></li>
-        <li ><a routerLink="/waiting-for-match">Ny Kamp</a></li>
-        <li ><a routerLink="/team-roster">Mit Hold</a></li>
-        <li ><a routerLink="/event-types">Event typer</a></li>
+        <li *ngIf="loggedIn"><a routerLink="/team-roster">Spillere</a></li>
+        <li *ngIf="loggedIn"><a routerLink="/team-setup">Holdopsætning</a></li>
+        <li *ngIf="loggedIn"><a routerLink="/event-types">Event typer</a></li>
         <li class="small"><a href="">Holdkode: {{team.teamCode}}</a></li>
       </ul>
 
     </div>
   </div>
+  <span tabindex="1">{{team.shortName}}</span>
 
   <main>
     <div #content>

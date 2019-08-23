@@ -26,7 +26,6 @@ playerSchema.statics.findByShirtNo = async function (shirtNo) {
   });
 };
 
-
 const Player = mongoose.model('Player', playerSchema);
 
 exports.default = Player;

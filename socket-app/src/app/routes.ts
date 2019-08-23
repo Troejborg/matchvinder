@@ -9,5 +9,6 @@ export enum ROUTES {
   VOTE_RESULT = 'player-votes',
   ROSTER = 'match-roster',
   TEAM_ROSTER = 'team-roster',
-  VOTING = 'voting'
+  VOTING = 'voting',
+  TEAM_SETUP = 'team-setup'
 }

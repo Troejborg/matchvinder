@@ -21,12 +21,12 @@ import {ROUTES} from './routes';
 import { TeamRosterComponent } from './components/manager-view/team/team-roster/team-roster.component';
 import {EventTypesComponent} from './components/manager-view/team/event-types/event-types.component';
 import { MatchesPlayedComponent } from './components/matches-played/matches-played.component';
-import { MainComponent } from './components/main/main.component';
 import { SocialLoginModule, AuthServiceConfig } from 'angularx-social-login';
-import { FacebookLoginProvider } from 'angularx-social-login';
 import { getAuthServiceConfigs } from './socialLoginConfig';
 import { LoginComponent } from './components/login/login.component';
 import { NewTeamComponent } from './new-team/new-team.component';
+import { TeamSetupComponent } from './components/manager-view/team-setup/team-setup.component';
+import { NewMatchComponent } from './components/new-match/new-match.component';
 
 
 // const config: SocketIoConfig = { url: 'http://134.209.93.63:4444', options: {} };
@@ -43,7 +43,8 @@ const appRoutes: Routes = [
   { path: ROUTES.EVENT_TYPES, component: EventTypesComponent},
   { path: ROUTES.MATCHES_PLAYED, component: MatchesPlayedComponent},
   { path: ROUTES.LOGIN, component: LoginComponent},
-  { path: ROUTES.NEW_TEAM, component: NewTeamComponent}
+  { path: ROUTES.NEW_TEAM, component: NewTeamComponent},
+  { path: ROUTES.TEAM_SETUP, component: TeamSetupComponent}
 ];
 
 @NgModule({
@@ -59,7 +60,9 @@ const appRoutes: Routes = [
     EventTypesComponent,
     MatchesPlayedComponent,
     LoginComponent,
-    NewTeamComponent
+    NewTeamComponent,
+    TeamSetupComponent,
+    NewMatchComponent,
   ],
   imports: [
     RouterModule.forRoot(
@@ -68,7 +71,7 @@ const appRoutes: Routes = [
     SocialLoginModule,
     BrowserModule,
     HttpClientModule,
-    BrowserAnimationsModule,    
+    BrowserAnimationsModule,
     FormsModule,
     ChartsModule,
     SocketIoModule.forRoot(config),

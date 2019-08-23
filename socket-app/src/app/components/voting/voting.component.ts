@@ -4,6 +4,7 @@ import {VotingService} from '../../services/voting.service';
 import {startWith} from 'rxjs/operators';
 import {Subscription} from 'rxjs';
 import {Animations} from '../../animated/animations';
+import * as CookieHelper from '../../services/cookie-helper';
 
 @Component({
   selector: 'app-voting',
@@ -40,35 +41,12 @@ export class VotingComponent implements OnInit, OnDestroy {
     });
   }
 
-  private setCookie(cname, cvalue, exdays) {
-    const d = new Date();
-    d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
-    const expires = 'expires=' + d.toUTCString();
-    document.cookie = cname + '=' + cvalue + ';' + expires + ';path=/';
-  }
-
-  private  getCookie(cname) {
-    const name = cname + '=';
-    const decodedCookie = decodeURIComponent(document.cookie);
-    const ca = decodedCookie.split(';');
-    for (let i = 0; i < ca.length; i++) {
-      let c = ca[i];
-      while (c.charAt(0) === ' ') {
-        c = c.substring(1);
-      }
-      if (c.indexOf(name) === 0) {
-        return c.substring(name.length, c.length);
-      }
-    }
-    return '';
-  }
-
   private getOrCreateId() {
     const VOTER_ID = 'voterId';
-    let userId: string = this.getCookie(VOTER_ID);
+    let userId: string = CookieHelper.getCookie(VOTER_ID);
     if (userId  === '') {
       userId = this.generateId();
-      this.setCookie(VOTER_ID, userId, 30);
+      CookieHelper.setCookie(VOTER_ID, userId, 30);
     }
 
     return userId;

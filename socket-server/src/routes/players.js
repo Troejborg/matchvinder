@@ -9,7 +9,26 @@ players.get('/', (req, res) => {
     res.status(200).json(users.sort((a,b) => a.shirtNo > b.shirtNo ? 1 : -1));
   });
 });
-players.route('/:id')
+
+/_ GET all Event types by team id. _/
+players.get('/by-team', (req, res) => {
+  console.log('get players by team id!');
+  const teamId = req.query['team'];
+  if (!!teamId) {
+    Player.find({team: teamId}).then((players, err) => {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        res.status(200).json(players);
+      }
+    });
+  }
+  else {
+    res.status(404)
+  }
+
+});
+players.route('/by-id/:id')
     .get((req, res) => {
       Player.findById(req.params.id, (err, players) => {
         if (err) res.status(500).send(error);

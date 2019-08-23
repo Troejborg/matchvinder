@@ -1,0 +1,15 @@
+.result-badge {
+  color: white;
+  background-color: #2e6ca2;
+  border-radius: 7px;
+  padding: 1px 6px;
+  margin-right: 10px;
+
+  &.victory {
+    background-color: #6aa61e;
+  }
+
+  &.defeat {
+    background-color: #c0403a;
+  }
+}

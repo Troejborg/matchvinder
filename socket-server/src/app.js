@@ -30,7 +30,7 @@ console.log(ROOT_PASSWORD);
 
 app.use('/players', playerRoutes);
 app.use('/team', teamRoutes);
-app.use('events', eventRoutes);
+app.use('/eventtype', eventRoutes);
 app.use('/', api);
 
 let voteEntries = [];
