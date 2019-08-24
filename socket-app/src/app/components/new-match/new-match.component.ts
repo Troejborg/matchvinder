@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import {Match} from '../../models/match';
 import {Player} from '../../models/player';
-import {AppState} from '../../voting-state';
-import {VotingService} from '../../services/voting.service';
+import * as CookieHelper from '../../services/cookie-helper';
 import {TeamsService} from '../../services/teams.service';
+import Team from '../../models/team';
 
 @Component({
   selector: 'app-new-match',
@@ -12,14 +12,15 @@ import {TeamsService} from '../../services/teams.service';
 })
 export class NewMatchComponent implements OnInit {
   public newMatch: Match;
-  public matchState = 'NotBegun';
   public teamRoster;
   public selectedPlayers: Player[] = [];
+  public isTeamLeadPlaying: boolean;
   awayTeam: string;
-  isTeamLeadPlaying: boolean;
+  private team: Team;
   constructor(private teamService: TeamsService) { }
 
   async ngOnInit() {
+    this.team = await this.teamService.getTeamByCode(CookieHelper.getTeamCodeFromCookies());
     this.teamRoster = await this.teamService.getFullTeamRoster();
     this.selectedPlayers = [];
   }
@@ -33,6 +34,15 @@ export class NewMatchComponent implements OnInit {
   }
 
   startMatch() {
-    console.log(`Started match against ${this.awayTeam}`);
+    this.newMatch = {
+      homeTeam: this.team,
+      awayTeam: this.awayTeam,
+      goalsAgainst: 0,
+      goalsFor: 0,
+      teamSheet: this.selectedPlayers,
+      date: new Date(),
+      completed: false,
+    }
+    console.log(`Started match against ${this.awayTeam}`, this.newMatch);
   }
 }

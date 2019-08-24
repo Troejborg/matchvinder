@@ -15,18 +15,22 @@ export class EventService {
 
   public async getTeamEventTypes(category: string): Promise<EventType[]> {
     this.team = await this.teamsService.getTeamByCode(CookieHelper.getCookie('TEAM_CODE'));
-    const params = new HttpParams()
-      .append('team', this.team._id);
+    let params;
     if (category) {
-      params.append('category', category);
+      params = new HttpParams()
+        .set('team', this.team._id)
+        .set('category', category);
+    } else {
+      params = new HttpParams()
+        .set('team', this.team._id);
     }
     return this.getAllEntities(this.eventTypeEndpoint + '/by-team', params);
   }
 
-  public async createOrUpdateEventtypes(entities: EventType[]) {
+  public async createOrUpdateEventTypes(entities: EventType[]) {
     this.team = await this.teamsService.getTeamByCode(CookieHelper.getCookie('TEAM_CODE'));
     const params = new HttpParams()
-      .append('team', this.team._id);
+      .set('team', this.team._id);
     return this.httpClient.post(this.SERVER_URL + this.eventTypeEndpoint, entities).toPromise();
 
   }
