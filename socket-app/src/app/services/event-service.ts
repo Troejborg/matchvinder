@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {ApplicationRef, Injectable} from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import {TeamsService} from './teams.service';
 import * as CookieHelper from './cookie-helper';

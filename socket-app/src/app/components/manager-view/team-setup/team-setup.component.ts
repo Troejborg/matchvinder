@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {ApplicationRef, Component, OnInit} from '@angular/core';
 import {TeamsService} from '../../../services/teams.service';
 import {EventCategory} from './event-category';
 import {EventService} from '../../../services/event-service';
@@ -57,7 +57,7 @@ export class TeamSetupComponent implements OnInit {
       title: 'Clean Sheet',
       eventTypes : [
         {displayName: 'Målmand', key: 'CLEAN_SHEET_GK', category: 'STATICS', pointValue: 0},
-        {displayName: '- Fratrukket per mål', key: 'CLEAN_SHEET_GK_SUBTRACT_VALUE', category: 'STATICS', pointValue: 100},
+        {displayName: '- Fratrukket per mål', key: 'CLEAN_SHEET_GK_SUBTRACT_VALUE', category: 'STATICS', pointValue: -100},
         {displayName: 'Forsvar', key: 'CLEAN_SHEET_DEF', category: 'STATICS', pointValue: 0},
         {displayName: 'Midtbane', key: 'CLEAN_SHEET_MID', category: 'STATICS', pointValue: 0}
       ]
@@ -73,7 +73,7 @@ export class TeamSetupComponent implements OnInit {
 
   constructor(private teamService: TeamsService, private eventService: EventService) { }
 
-  private getEventCategoryBytitle(title: string) {
+  private getEventCategoryByTitle(title: string) {
     return this.eventCategories.find(category => category.title === title);
   }
   async ngOnInit() {
@@ -86,14 +86,11 @@ export class TeamSetupComponent implements OnInit {
       eventCategory.eventTypes.forEach((eventType: EventType) => {
         let matchingEventType = teamEventTypes.find(teamEventType => teamEventType.key === eventType.key);
         matchingEventType = matchingEventType !== undefined ? matchingEventType : eventType;
-        const category = this.getEventCategoryBytitle(eventCategory.title);
+        const category = this.getEventCategoryByTitle(eventCategory.title);
         category.eventTypes.push(matchingEventType);
       });
     });
     console.log(this.eventCategories);
-  }
-
-  update() {
   }
 
   updateEventType(index: number) {
