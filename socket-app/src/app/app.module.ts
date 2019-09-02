@@ -15,9 +15,8 @@ import { VotingProgressComponent } from './components/voting-progress/voting-pro
 import { SwiperModule } from 'ngx-useful-swiper';
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 
+const config: SocketIoConfig = { url: 'http://localhost:4444', options: {} };
 
-const config: SocketIoConfig = { url: 'http://134.209.93.63:4444', options: {} };
-// const config: SocketIoConfig = { url: 'http://localhost:4444', options: {} };
 @NgModule({
   declarations: [
     AppComponent,
@@ -29,7 +28,7 @@ const config: SocketIoConfig = { url: 'http://134.209.93.63:4444', options: {} }
   ],
   imports: [
     BrowserModule,
-    BrowserAnimationsModule,    
+    BrowserAnimationsModule,
     FormsModule,
     ChartsModule,
     SocketIoModule.forRoot(config),
