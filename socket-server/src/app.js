@@ -9,9 +9,7 @@ const api = require('./routes/api');
 const playerRoutes = require('./routes/players');
 const eventRoutes = require('./routes/events');
 const teamRoutes = require('./routes/team');
-
-const models = require('./models/models').default;
-const express = require('express');
+const matchRoutes = require('./routes/match');
 
 // Cross Origin middleware
 app.use(function(req, res, next) {
@@ -31,6 +29,7 @@ console.log(ROOT_PASSWORD);
 app.use('/players', playerRoutes);
 app.use('/team', teamRoutes);
 app.use('/eventtype', eventRoutes);
+app.use('/match', matchRoutes);
 app.use('/', api);
 
 let voteEntries = [];

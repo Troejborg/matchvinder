@@ -5,7 +5,7 @@ export interface Match {
   homeTeam:  Team;
   awayTeam: string;
   date: Date;
-  completed: boolean;
+  state: string;
   goalsFor: number;
   goalsAgainst: number;
   teamSheet: Player[];

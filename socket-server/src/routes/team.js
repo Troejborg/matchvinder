@@ -48,8 +48,6 @@ team.get('/all', (req, res) => {
 
 function createTeam(newTeamData, owner, res) {
   getFirstAvailableTeamCode().then((availableTeamCode) => {
-    const newTeamData = req.body.newTeam;
-    const owner = req.body.owner;
     let team = new Team({
       longName: newTeamData.longName,
       shortName: newTeamData.identifier,
@@ -84,7 +82,7 @@ team.post('/', (req, res) => {
   if(req.body.team._id) {
     updateTeam(req, res)
   } else {
-    createTeam(req, res);
+    createTeam(req.body.team, req.body.owner, res);
   }
 });
 

@@ -22,23 +22,26 @@ export class MatchesPlayedComponent implements OnInit {
         homeTeam: this.team,
         awayTeam: 'Gedved',
         date: new Date(2019, 8, 21),
-        state: 'Finished',
         goalsFor: 0,
-        goalsAgainst: 0
+        goalsAgainst: 0,
+        state: 'Finished',
+        teamSheet: []
       }, {
         homeTeam: this.team,
         awayTeam: 'As IF',
         date: new Date(2019, 8, 14),
-        state: 'Finished',
         goalsFor: 3,
-        goalsAgainst: 2
+        goalsAgainst: 2,
+        state: 'Finished',
+        teamSheet: []
       }, {
         homeTeam: this.team,
         awayTeam: 'BUF Horsens',
         date: new Date(2019, 6, 26),
-        state: 'Finished',
         goalsFor: 7,
-        goalsAgainst: 2
+        goalsAgainst: 2,
+        state: 'Finished',
+        teamSheet: []
       }
     ];
   }

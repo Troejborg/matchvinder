@@ -27,6 +27,7 @@ import { LoginComponent } from './components/login/login.component';
 import { NewTeamComponent } from './new-team/new-team.component';
 import { TeamSetupComponent } from './components/manager-view/team-setup/team-setup.component';
 import { NewMatchComponent } from './components/new-match/new-match.component';
+import { LiveMatchComponent } from './components/live-match/live-match.component';
 
 
 // const config: SocketIoConfig = { url: 'http://134.209.93.63:4444', options: {} };
@@ -45,7 +46,8 @@ const appRoutes: Routes = [
   { path: ROUTES.LOGIN, component: LoginComponent},
   { path: ROUTES.NEW_TEAM, component: NewTeamComponent},
   { path: ROUTES.TEAM_SETUP, component: TeamSetupComponent},
-  { path: ROUTES.NEW_MATCH, component: NewMatchComponent}
+  { path: ROUTES.NEW_MATCH, component: NewMatchComponent},
+  { path: ROUTES.LIVE_MATCH, component: LiveMatchComponent}
 ];
 
 @NgModule({
@@ -64,6 +66,7 @@ const appRoutes: Routes = [
     NewTeamComponent,
     TeamSetupComponent,
     NewMatchComponent,
+    LiveMatchComponent,
   ],
   imports: [
     RouterModule.forRoot(

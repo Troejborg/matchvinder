@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import {HttpClient, HttpParams} from '@angular/common/http';
 import Team from '../models/team';
+import {Match} from '../models/match';
 
 @Injectable({
   providedIn: 'root'
@@ -9,6 +10,7 @@ export class TeamsService {
   private SERVER_URL: String = 'http://localhost:4444';
   constructor(private httpClient: HttpClient) {}
 
+  private matchEndpoint = '/match';
   private playerEndpoint = '/players';
   private eventTypeEndpoint = '/eventtype';
   private teamEndpoint = '/team';
@@ -78,5 +80,21 @@ export class TeamsService {
 
   public deletePlayer(selectedPlayer: any): Promise<Object>  {
     return this.deleteEntity(this.playerEndpoint, selectedPlayer);
+  }
+
+  public createMatch(matchEntity: Match): Promise<any> {
+    return this.createOrUpdateEntity(this.matchEndpoint, matchEntity);
+  }
+
+  public getOngoingMatch(): Promise<Match> {
+    const params = new HttpParams()
+      .append('team', this.team._id);
+    return this.httpClient.get<Match>(this.SERVER_URL + this.matchEndpoint, { params }).toPromise<Match>();
+  }
+
+  public getTeamById(matchId: string): Promise<Match> {
+    const params = new HttpParams()
+      .append('team', this.team._id);
+    return this.httpClient.get<Match>(this.SERVER_URL + this.matchEndpoint + 'by-id/', { params }).toPromise<Match>();
   }
 }

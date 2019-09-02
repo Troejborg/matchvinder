@@ -7,23 +7,25 @@
     </div>
   </div>
 </div>
-<label>Holdkort</label>
-<div class="border roster-section">
-  <div class="list-group">
-    <div *ngFor="let player of teamRoster">
-      <input type="checkbox" name="CheckBoxInputName" id="{{player.name}}"/>
-      <label class="list-group-item" for="{{player.name}}"
-             (click)="selectPlayer(player)">{{player.name}}</label>
-    </div>
-    <nav class="navbar fixed-bottom navbar-light" style="background-color: white;">
-    <span style="width: 40px;">
-      <button class="menu-icon btn btn-outline-primary selected-players-counter active" [ngClass]="{'active': selectedPlayers.length == 14}" disabled>{{selectedPlayers.length}}/14</button>
-    </span>
-      <span></span>
-      <div>
-        <button (click)="startMatch()" class="btn btn-outline-success start-btn">Start Kamp</button>
+<div>
+  <label>Holdkort</label>
+  <div class="roster-section">
+    <div class="list-group">
+      <div *ngFor="let player of teamRoster">
+        <input type="checkbox" name="CheckBoxInputName" id="{{player.name}}"/>
+        <label class="list-group-item" for="{{player.name}}"
+               (click)="selectPlayer(player)">{{player.name}}</label>
       </div>
-    </nav>
+    </div>
   </div>
 </div>
+<nav class="navbar fixed-bottom navbar-light" style="background-color: white;">
+  <span style="width: 40px;">
+    <button class="menu-icon btn btn-outline-primary selected-players-counter active" [ngClass]="{'active': selectedPlayers.length == 14}" disabled>{{selectedPlayers.length}}/14</button>
+  </span>
+  <span></span>
+  <div>
+    <button (click)="createMatch()" class="btn btn-outline-success start-btn">OK</button>
+  </div>
+</nav>
 
