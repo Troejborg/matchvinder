@@ -6,6 +6,7 @@ export interface MatchEvent {
   eventType: EventType;
   assignee: Player;
   text: string;
+  time: Date;
 }
 
 export interface Match {

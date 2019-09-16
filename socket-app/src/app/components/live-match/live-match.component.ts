@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {TeamsService} from '../../services/teams.service';
 import {Match} from '../../models/match';
+import {Moment} from 'moment';
+import * as moment from 'moment';
+
 
 @Component({
   selector: 'app-live-match',
@@ -22,34 +25,36 @@ export class LiveMatchComponent implements OnInit {
     } else {
       this.match = await this.teamService.getOngoingMatch(true);
     }
+    console.log(this.match);
     this.matchEvents = [
       {
-        text: 'Mål! Et fantastisk assist af Claus Meldrup betød at Capser Kirkegaard kunne hamre bolden ind i nettet!',
+        text: 'Mål! Scoret af Casper Kirkegaard',
         minute: 17,
         point: 100
       }, {
-        text: 'Gult kort! En herretackling betød at ambulancer måtte tilkaldes da Justinus T savede benene over på en modstander',
+        text: 'Gult kort! Begået af Justinus T',
         minute: 29,
         point: -50
       }, {
-      text: 'Dagens detalje! En ekstraordinært smuk manøvre af Casper Bo Jensen betød at han blev tildelt dagens detalje!',
+      text: 'Dagens detalje! Casper Bo Jensen betød blev tildelt dagens detalje!',
         minute: 36,
         point: 50
       }, {
-        text: 'Mål! Sikke en fuldtræffer! Martin \'Tordenstøvlen\' Wolhardt så sit snit til ' +
-          'at tage et skud udefra og dét blev belønnet med et mål! 2-0!',
+        text: 'Mål! Scoret af Martin \'Tordenstøvlen\' Wolhardt',
         minute: 48,
         point: 100
       }, {
-        text: 'Mål til modstanderen! Et ufortjent fjumremål. Men selv en blind høne kan finde æg engang imellem. 2-1.',
+        text: 'Mål af Ærkerival FC! Stillingen er nu 2-1.',
         minute: 55,
         point: -20
       }, {
-        text: 'Slutfløjt. Endnu en smukt udført fodboldkamp af Egebjerg IF betød ' +
-          'at atter engang kan tage til 3. halveg med en velfortjent sejr',
+        text: 'Slutfløjt. Vinderen af kampen er Egebjerg IF!',
         minute: 70
       }
     ];
   }
 
+  getMatchTimeOfEvent(time: Date) {
+    return moment(time).diff(this.match.date, 'minutes');
+  }
 }

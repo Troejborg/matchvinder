@@ -35,7 +35,8 @@
     "popper.js": "~1.15.0",
     "rxjs": "~6.3.3",
     "swiper": "^4.5.0",
-    "zone.js": "~0.8.26"
+    "zone.js": "~0.8.26",
+    "moment": "latest"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.13.0",

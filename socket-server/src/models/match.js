@@ -1,7 +1,15 @@
 const mongoose = require('mongoose');
+const ObjectId = mongoose.Types.ObjectId;
+
+const matchEventsAggregate = {
+  from: 'MatchEvent',
+  localField: 'homeTeam',
+  foreignField: 'match',
+  as: 'matchEvents'
+};
 
 const matchSchema = new mongoose.Schema({
-  homeTeam:  [{ type: mongoose.Schema.Types.ObjectId, ref: 'Team' }],
+  homeTeam:  { type: mongoose.Schema.Types.ObjectId, ref: 'Team' },
   awayTeam: String,
   date: {
     type: Date,
@@ -9,16 +17,32 @@ const matchSchema = new mongoose.Schema({
   },
   teamSheet: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Player' }],
   state: String,
-  goalsFor: Number,
-  goalsAgainst: Number
-
 });
 
 matchSchema.statics.findOngoingMatchByTeamId = async function (teamId) {
-  return this.findOne({
-    homeTeam: teamId,
-    state: {$in: ['Ongoing']}
-  });
+  return this.aggregate()
+      .match(
+          {
+            $and: [
+              {state: 'Ongoing'},
+              {homeTeam: ObjectId(teamId)}
+            ]
+          }
+      )
+      .lookup({
+        from: 'players',
+        localField: 'teamSheet',
+        foreignField: '_id',
+        as: 'teamSheet'
+      });
+};
+
+matchSchema.statics.findMatchesByTeam = async function (teamId) {
+  return this.find({
+    homeTeam: teamId
+  }).aggregate([
+    matchEventsAggregate
+  ])
 };
 
 const Match = mongoose.model('Match', matchSchema);

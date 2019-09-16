@@ -1,7 +1,25 @@
-.container {
-  letter-spacing: .01em;
+.standing-container {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 20px;
+  .team {
+    font-size: larger;
+  }
+  .score-container {
+    display: flex;           /* establish flex container */
+    flex-direction: column;  /* make main axis vertical */
+    justify-content: center; /* center items vertically, in this case */
+    align-items: center;
+    .score {
+      display: block;
+      font-weight: bolder;
+      font-size: x-large;
+    }
+    .current-minute{
+      display: block;
+    }
+  }
 }
-
 .match-event {
   margin-bottom: 20px;
 }

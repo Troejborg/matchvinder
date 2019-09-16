@@ -43,6 +43,8 @@ export class NewMatchComponent implements OnInit {
       teamSheet: this.selectedPlayers,
       date: new Date(),
       state: 'NotBegun',
+      _id: 'foo',
+      matchEvents: []
     };
 
     const createdMatch = await this.teamService.createMatch(this.newMatch);

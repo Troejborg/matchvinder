@@ -1,12 +1,22 @@
-<div class="container">
-  <div *ngFor="let event of matchEvents" class="card match-event">
-    <div class="card-header event-header">
-      <span class="minute">{{event.minute}}'</span>
-      <span class="point"
-            [ngClass]="{'positive': event.point > 0, 'negative': event.point < 0}">{{event.point > 0 ? "+" : ""}}{{event.point}}</span>
-    </div>
-    <div class="card-body">
-      {{event.text}}
-    </div>
+<div class="standing-container">
+  <span class="team">
+    {{teamService.getTeam().longName}}
+  </span>
+  <span class="score-container">
+    <span class="score">2 : 1</span>
+    <span class="current-minute">Kampstart : {{match.date | date: 'shortTime'}}</span>
+  </span>
+  <span class="team">
+    {{match.awayTeam}}
+  </span>
+</div>
+<div *ngFor="let event of match.matchEvents" class="card match-event">
+  <div class="card-header event-header">
+    <span class="minute">{{getMatchTimeOfEvent(event.time)}}'</span>
+    <span class="point"
+          [ngClass]="{'positive': event.eventType.pointValue > 0, 'negative': event.eventType.pointValue < 0}">{{event.eventType.pointValue > 0 ? "+" : ""}}{{event.eventType.pointValue}}</span>
+  </div>
+  <div class="card-body">
+    {{event.eventType.displayName}}
   </div>
 </div>

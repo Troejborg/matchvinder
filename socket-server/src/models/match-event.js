@@ -12,7 +12,9 @@ const eventSchema = new mongoose.Schema({
 });
 
 eventSchema.statics.findByMatchId = async function (matchId) {
-  return await this.find({ match: matchId });
+  return this.find({match: matchId})
+      .populate('eventType')
+      .populate('assignee');
 };
 
 const MatchEvent = mongoose.model('MatchEvent', eventSchema);

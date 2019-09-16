@@ -22,15 +22,16 @@ matches.get('/by-team', (req, res) => {
 matches.route('/ongoing').get((req, res) => {
   const teamId = req.query.team;
   Match.findOngoingMatchByTeamId(teamId).then(response => {
-    if(Boolean.valueOf(req.query.includeEvents)) {
-      MatchEvent.findByMatchId(response._id).then((matchEvents) => {
-        response.matchEvents = matchEvents;
-        res.status(200).json(response);
-      });
-    } else {
-      res.status(200).json(response);
+    if (!response || response.length !== 1) {
+      res.status(404);
+      return;
     }
-    console.log(response);
+    const ongoingMatch = response[0];
+    MatchEvent.findByMatchId(ongoingMatch._id).then(events =>{
+      ongoingMatch.matchEvents = events;
+      res.status(200).json(ongoingMatch);
+      console.log(ongoingMatch);
+    })
   });
 });
 
@@ -38,14 +39,7 @@ matches.route('/')
     .get((req, res) => {
       Match.findById(req.params.id, (err, match) => {
         if (err) res.status(500).send(err);
-        if(Boolean.valueOf(req.query.include-events)) {
-          MatchEvent.findByMatchId(req.params.id).then((matchEvents) => {
-            match.matchEvents = matchEvents;
-            res.status(200).json(match);
-          });
-        }else {
-          res.status(200).json(match);
-        }
+        res.status(200).json(match);
       });
     })
     .delete((req, res) => {

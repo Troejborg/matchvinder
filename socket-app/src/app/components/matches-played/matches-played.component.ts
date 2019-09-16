@@ -10,7 +10,7 @@ import Team from '../../models/team';
   styleUrls: ['./matches-played.component.scss']
 })
 export class MatchesPlayedComponent implements OnInit {
-  public playedMatches: Match[] = []
+  public playedMatches: Match[];
   private team: Team;
   constructor(private teamsService: TeamsService) {
   }
@@ -25,7 +25,7 @@ export class MatchesPlayedComponent implements OnInit {
         goalsFor: 0,
         goalsAgainst: 0,
         state: 'Finished',
-        teamSheet: []
+        teamSheet: [], matchEvents: [], _id: '1'
       }, {
         homeTeam: this.team,
         awayTeam: 'As IF',
@@ -33,7 +33,7 @@ export class MatchesPlayedComponent implements OnInit {
         goalsFor: 3,
         goalsAgainst: 2,
         state: 'Finished',
-        teamSheet: []
+        teamSheet: [], matchEvents: [], _id: '2'
       }, {
         homeTeam: this.team,
         awayTeam: 'BUF Horsens',
@@ -41,7 +41,7 @@ export class MatchesPlayedComponent implements OnInit {
         goalsFor: 7,
         goalsAgainst: 2,
         state: 'Finished',
-        teamSheet: []
+        teamSheet: [], matchEvents: [], _id: '3'
       }
     ];
   }

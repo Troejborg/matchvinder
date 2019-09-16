@@ -80,8 +80,12 @@ function createEventType(req, res) {
     category: req.body.category != null ? req.body.category : "CUSTOM",
     team: req.body.team
   });
-  eventType.save(error => {
-    if (error) res.status(500).send(error);
+    eventType.save(error => {
+    if (error) {
+      res.status(500).send(error);
+      console.error(error);
+      return;
+    }
 
     res.status(201).json({
       message: `EventType ${eventType.eventName} created successfully`

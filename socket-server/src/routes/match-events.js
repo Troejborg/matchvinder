@@ -41,7 +41,22 @@ matchEvents.route('/')
         // NYI
         console.log("Updating : " + req.query.id);
       } else {
+          createEvent(req, res);
         console.log("Creating new event...");
       }
     });
+
+function createEvent(req, res) {
+  let matchEvent = new MatchEvent(req.body);
+  matchEvent.save(error => {
+    if (error) {
+      res.status(500).send(error);
+      return;
+    }
+
+    res.status(201).json({
+      message: `EventType ${matchEvent.eventName} created successfully`
+    });
+  });
+}
 module.exports = matchEvents;
