@@ -1,5 +1,10 @@
 <div class="container">
   <div *ngFor="let event of matchEvents" class="card match-event">
+    <div class="card-header event-header">
+      <span class="minute">{{event.minute}}'</span>
+      <span class="point"
+            [ngClass]="{'positive': event.point > 0, 'negative': event.point < 0}">{{event.point > 0 ? "+" : ""}}{{event.point}}</span>
+    </div>
     <div class="card-body">
       {{event.text}}
     </div>

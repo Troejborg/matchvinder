@@ -86,15 +86,30 @@ export class TeamsService {
     return this.createOrUpdateEntity(this.matchEndpoint, matchEntity);
   }
 
-  public getOngoingMatch(): Promise<Match> {
+  public getOngoingMatch(includeMatchEvents: boolean): Promise<Match> {
     const params = new HttpParams()
-      .append('team', this.team._id);
+      .append('team', this.team._id)
+      .append('includeEvents', String(includeMatchEvents));
+    return this.httpClient.get<Match>(this.SERVER_URL + this.matchEndpoint + '/ongoing/', { params }).toPromise<Match>();
+  }
+
+  public getMatchById(matchId: string, includeMatchEvents: boolean): Promise<Match> {
+
+    const params = new HttpParams()
+      .append('match', matchId)
+      .append('includeEvents', String(includeMatchEvents));
     return this.httpClient.get<Match>(this.SERVER_URL + this.matchEndpoint, { params }).toPromise<Match>();
   }
 
   public getTeamById(matchId: string): Promise<Match> {
     const params = new HttpParams()
       .append('team', this.team._id);
-    return this.httpClient.get<Match>(this.SERVER_URL + this.matchEndpoint + 'by-id/', { params }).toPromise<Match>();
+    return this.httpClient.get<Match>(this.SERVER_URL + this.matchEndpoint + '/by-id/', { params }).toPromise<Match>();
+  }
+
+  public async getMatchEvents(id: string) {
+    const params = new HttpParams()
+      .append('match', id);
+    return this.httpClient.get<Match>(this.SERVER_URL + this.matchEndpoint, { params }).toPromise<Match>();
   }
 }

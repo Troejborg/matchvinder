@@ -1,4 +1,4 @@
-const { Match } = require('../models/models').default;
+const { Match, MatchEvent } = require('../models/models').default;
 const matches = require('express').Router();
 
 matches.get('/by-team', (req, res) => {
@@ -18,23 +18,52 @@ matches.get('/by-team', (req, res) => {
   }
 
 });
-matches.route('/by-id/:id')
-    .get((req, res) => {
-      Match.findById(req.params.id, (err, matches) => {
-        if (err) res.status(500).send(err);
 
-        res.status(200).json(matches);
+matches.route('/ongoing').get((req, res) => {
+  const teamId = req.query.team;
+  Match.findOngoingMatchByTeamId(teamId).then(response => {
+    if(Boolean.valueOf(req.query.includeEvents)) {
+      MatchEvent.findByMatchId(response._id).then((matchEvents) => {
+        response.matchEvents = matchEvents;
+        res.status(200).json(response);
+      });
+    } else {
+      res.status(200).json(response);
+    }
+    console.log(response);
+  });
+});
+
+matches.route('/')
+    .get((req, res) => {
+      Match.findById(req.params.id, (err, match) => {
+        if (err) res.status(500).send(err);
+        if(Boolean.valueOf(req.query.include-events)) {
+          MatchEvent.findByMatchId(req.params.id).then((matchEvents) => {
+            match.matchEvents = matchEvents;
+            res.status(200).json(match);
+          });
+        }else {
+          res.status(200).json(match);
+        }
       });
     })
     .delete((req, res) => {
       Match.deleteOne({
-        "_id": req.params.id
+        "_id": req.query.id
       }, function(err, match) {
         if (err)
           res.send(err);
 
         res.json({ message: 'Successfully deleted player: ' + match._id });
       });
+    })
+    .post((req, res) => {
+      if (req.query.id) {
+        updateMatch(req, res);
+      } else {
+        createMatch(req, res);
+      }
     });
 matches.get('/all', (req, res) => {
   Match.find({}, (err, matches) => {
@@ -44,19 +73,10 @@ matches.get('/all', (req, res) => {
   });
 });
 
-/_ Create or update a player. _/
-matches.post('/', (req, res) => {
-  if (req.body._id) {
-    updateMatch(req, res);
-  } else {
-    createMatch(req, res);
-  }
-});
-
 function updateMatch(req, res) {
-  Match.findById(req.body._id, (err, match) => {
+  Match.findById(req.query.id, (err, match) => {
     if (err) res.status(500).send(err);
-    match = Object.assign(match, req.body.match);
+    match = Object.assign(match, req.body);
     match.save(error => {
       if (error) res.status(500).send(error);
 

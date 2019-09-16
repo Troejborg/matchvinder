@@ -5,3 +5,21 @@
 .match-event {
   margin-bottom: 20px;
 }
+
+.event-header {
+  display: inline-flex;
+  justify-content: space-between;
+
+  .point {
+    &.positive {
+      color: #6aa61e;
+    }
+    &.negative {
+      color: #a22e32;
+    }
+  }
+
+  .minute {
+
+  }
+}

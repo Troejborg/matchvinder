@@ -13,6 +13,14 @@ const matchSchema = new mongoose.Schema({
   goalsAgainst: Number
 
 });
+
+matchSchema.statics.findOngoingMatchByTeamId = async function (teamId) {
+  return this.findOne({
+    homeTeam: teamId,
+    state: {$in: ['Ongoing']}
+  });
+};
+
 const Match = mongoose.model('Match', matchSchema);
 
 exports.default = Match;

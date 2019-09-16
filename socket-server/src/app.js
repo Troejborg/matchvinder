@@ -7,7 +7,8 @@ const bodyParser = require('body-parser');
 // Get our API routes
 const api = require('./routes/api');
 const playerRoutes = require('./routes/players');
-const eventRoutes = require('./routes/events');
+const eventTypeRoutes = require('./routes/event-types');
+const eventRoutes = require('./routes/match-events');
 const teamRoutes = require('./routes/team');
 const matchRoutes = require('./routes/match');
 
@@ -28,7 +29,8 @@ console.log(ROOT_PASSWORD);
 
 app.use('/players', playerRoutes);
 app.use('/team', teamRoutes);
-app.use('/eventtype', eventRoutes);
+app.use('/eventtype', eventTypeRoutes);
+app.use('/match-event', eventRoutes);
 app.use('/match', matchRoutes);
 app.use('/', api);
 
